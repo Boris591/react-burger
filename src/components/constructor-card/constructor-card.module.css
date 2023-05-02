@@ -1,0 +1,63 @@
+.card{
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.drag{
+    position: absolute;
+    height: 100%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.main{
+    display: flex;
+    align-items: center;
+    background: #1C1C21;
+}
+
+.main:global.default{
+    border-radius: 40px;
+}
+
+.main:global.first{
+    border-radius: 88px 88px 40px 40px;
+    margin-right: 16px;
+}
+
+.main:global.last{
+    border-radius: 40px 40px 88px 88px;
+    margin-right: 16px;
+    margin-top: 16px;
+}
+
+.img{
+    width: 80px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img img{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.name{
+    width: 254px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+.other,
+.price{
+    display: flex;
+}
+
+.price svg{
+    margin-left: 8px;
+}

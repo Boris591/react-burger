@@ -1,0 +1,33 @@
+.card{
+    height: 208px;
+    position: relative;
+}
+
+.img{
+    display: flex;
+    justify-content: center;
+}
+
+.img img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.price{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.value{
+    margin-right: 10px;
+}
+
+.name{
+    text-align: center;
+}
+
+.name h4{
+    overflow-wrap: break-word;
+    margin: 0;
+}

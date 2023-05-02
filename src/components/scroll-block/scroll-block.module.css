@@ -1,0 +1,17 @@
+.list{
+    padding-right: 16px;
+}
+
+.list :global .ps__rail-y{
+    background: #2F2F37 !important;
+    opacity: 1 !important;
+    width: 8px;
+}
+
+.list :global .ps__rail-y .ps__thumb-y{
+    background: #8585AD;
+    opacity: 1 !important;
+    width: 100%;
+    border-radius: 0;
+    right: 0;
+}
