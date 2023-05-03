@@ -1,12 +1,20 @@
-import PerfectScrollbar from "react-perfect-scrollbar";
-import 'react-perfect-scrollbar/dist/css/styles.css';
+import SimpleBar from "simplebar-react";
+import 'simplebar-react/dist/simplebar.min.css';
 import scroll from "./scroll-block.module.css";
-import {useState} from "react";
+import {createRef, useEffect, useRef, useState} from "react";
 function ScrollBlock(props){
+    const scrollableNodeRef = createRef();
+
+    useEffect(() => {
+        scrollableNodeRef.current.addEventListener('scroll', function(e){
+            console.log(scrollableNodeRef.current.scrollTop);
+        });
+    });
+
     return (
-        <PerfectScrollbar style={{ height: props.height }} className={scroll.list}>
+        <SimpleBar scrollableNodeProps={{ ref: scrollableNodeRef }} style={{ maxHeight: props.height }} className={scroll.list}>
             {props.children}
-        </PerfectScrollbar>
+        </SimpleBar>
     );
 }
 

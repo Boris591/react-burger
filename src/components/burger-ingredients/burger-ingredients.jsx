@@ -26,14 +26,21 @@ function BurgerIngredients(){
                 <section className="mb-10">
                     <h3 className={ingredients['title-section'] + " text_type_main-medium"}>Булки</h3>
                     <div className={ingredients.cards + " pl-4"}>
-                        <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={0} />
-                        <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
                         <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
                         <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
                     </div>
                 </section>
                 <section className="mb-10">
                     <h3 className={ingredients['title-section'] + " text_type_main-medium"}>Соусы</h3>
+                    <div className={ingredients.cards + " pl-4"}>
+                        <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
+                        <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
+                        <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
+                        <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
+                    </div>
+                </section>
+                <section className="mb-10">
+                    <h3 className={ingredients['title-section'] + " text_type_main-medium"}>Начинки</h3>
                     <div className={ingredients.cards + " pl-4"}>
                         <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />
                         <IngredientCard img={'https://code.s3.yandex.net/react/code/bun-01.png'} price={20} name="Краторная булка N-200i" count={1} />

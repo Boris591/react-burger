@@ -3,7 +3,7 @@
     margin-bottom: 0;
 }
 
-.wrapper :global .ps__rail-y{
+.wrapper :global .simplebar-track.simplebar-vertical{
     margin-bottom: 52px;
 }
 
