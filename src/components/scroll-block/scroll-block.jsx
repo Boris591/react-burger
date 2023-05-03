@@ -7,9 +7,16 @@ function ScrollBlock(props){
 
     useEffect(() => {
         scrollableNodeRef.current.addEventListener('scroll', function(e){
-            console.log(scrollableNodeRef.current.scrollTop);
+            if(scrollableNodeRef.current && props.handleTab){
+                props.handleTab(scrollableNodeRef.current.scrollTop);
+            }
         });
     });
+
+    useEffect(() => {
+        //scrollableNodeRef.current.scrollTo({top: props.currentPos, behavior: 'smooth'});
+        scrollableNodeRef.current.scrollTop = props.currentPos;
+    }, [props.currentPos]);
 
     return (
         <SimpleBar scrollableNodeProps={{ ref: scrollableNodeRef }} style={{ maxHeight: props.height }} className={scroll.list}>

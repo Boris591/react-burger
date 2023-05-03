@@ -17,7 +17,3 @@
     border-radius: 0;
     right: 0;
 }
-
-.list :global .simplebar-content-wrapper {
-    scroll-behavior: smooth;
-}
