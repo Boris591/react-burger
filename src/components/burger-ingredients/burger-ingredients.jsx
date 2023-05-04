@@ -1,4 +1,4 @@
-import {createRef, useEffect, useRef, useState} from "react";
+import {createRef, useEffect, useMemo, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
@@ -6,17 +6,17 @@ import burger from "./burger-ingredients.module.css";
 import PropTypes from 'prop-types';
 
 function BurgerIngredients(props) {
-    const [categories, setCategories] = useState([
+    const categories = useMemo(() => [
         {name: "Булки", code: "bun"},
         {name: "Соусы", code: "sauce"},
         {name: "Начинки", code: "main"}
-    ]);
+    ], []);
     let height = 716;
     const [currentPosCategory, setCurrentPosCategory] = useState(0);
     const catLength = categories.length;
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const [ingredients, setIngredients] = useState(props.data);
+    const ingredients = props.data;
 
     useEffect(() => {
         // add or remove refs
@@ -39,7 +39,7 @@ function BurgerIngredients(props) {
 
         }
 
-    }, [currentPosCategory]);
+    }, [currentPosCategory, catRefs, categories]);
 
     const handleTab = (pos) => {
         setCurrentPosCategory(pos);
@@ -87,7 +87,12 @@ function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.arrayOf(PropTypes.shape({
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired
+    })),
 };
 
 

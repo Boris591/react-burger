@@ -1,7 +1,7 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import card from "./ingredient-card.module.css";
 import PropTypes from "prop-types";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+
 function IngredientCard(props){
     return (
         <div className={card.card}>
@@ -9,7 +9,7 @@ function IngredientCard(props){
                 <Counter count={props.count} size="default" />
             }
             <div className="img pl-4 pr-4 mb-1">
-                <img src={props.img} />
+                <img src={props.img} alt={props.name} />
             </div>
             <div className="info">
                 <div className={card.price + " mb-1"}>

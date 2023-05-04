@@ -17,7 +17,7 @@ function ScrollBlock(props){
     useEffect(() => {
         //scrollableNodeRef.current.scrollTo({top: props.currentPos, behavior: 'smooth'});
         scrollableNodeRef.current.scrollTop = props.currentPos;
-    }, [props.currentPos]);
+    }, [props.currentPos, scrollableNodeRef]);
 
     return (
         <SimpleBar scrollableNodeProps={{ ref: scrollableNodeRef }} style={{ maxHeight: props.height }} className={scroll.list}>
