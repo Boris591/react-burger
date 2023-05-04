@@ -1,5 +1,7 @@
 import {CurrencyIcon, DeleteIcon, DragIcon, LockIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import card from "./constructor-card.module.css";
+import PropTypes from "prop-types";
+import IngredientCard from "../ingredient-card/ingredient-card";
 
 function ConstructorCard(props){
     return (
@@ -9,7 +11,7 @@ function ConstructorCard(props){
                     <DragIcon type="primary" />
                 }
             </div>
-            <div className={card.main + " pt-4 pb-4 pr-8 pl-6 " + props.type}>
+            <div className={card.main + " pr-8 pl-6 " + props.type}>
                 <div className={card.img + " mr-5"}>
                     <img src={props.img}/>
                 </div>
@@ -31,5 +33,14 @@ function ConstructorCard(props){
         </div>
     );
 }
+
+ConstructorCard.propTypes = {
+    count: PropTypes.number,
+    img: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    blocked: PropTypes.bool.isRequired,
+    type: PropTypes.oneOf(['first', 'default', 'last']),
+};
 
 export default ConstructorCard;

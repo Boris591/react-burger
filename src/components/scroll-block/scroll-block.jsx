@@ -1,7 +1,8 @@
 import SimpleBar from "simplebar-react";
 import 'simplebar-react/dist/simplebar.min.css';
 import scroll from "./scroll-block.module.css";
-import {createRef, useEffect, useRef, useState} from "react";
+import {createRef, useEffect} from "react";
+import PropTypes from 'prop-types';
 function ScrollBlock(props){
     const scrollableNodeRef = createRef();
 
@@ -24,5 +25,11 @@ function ScrollBlock(props){
         </SimpleBar>
     );
 }
+
+ScrollBlock.propTypes = {
+    height: PropTypes.string.isRequired,
+    handleTab: PropTypes.func,
+    currentPos: PropTypes.number
+};
 
 export default ScrollBlock;
