@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function IngredientCard(props){
     return (
-        <div className={card.card}>
+        <div className={card.card} onClick={props.showInfo}>
             {props.count > 0 &&
                 <Counter count={props.count} size="default" />
             }
@@ -28,7 +28,8 @@ IngredientCard.propTypes = {
     count: PropTypes.number.isRequired,
     img: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    showInfo: PropTypes.func.isRequired
 };
 
 export default IngredientCard;
