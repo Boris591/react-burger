@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 function BurgerConstructor(props){
     const products = props.data;
-    const blockedProductId = "60666c42cc7b410027a1a9b1";
+    const blockedProductId = "643d69a5c3f7b9001cfa093c";
     const [blockedElements, setBlockedElements] = useState([]);
     const [finalPrice, setFinalPrice] = useState(0);
 
@@ -54,7 +54,8 @@ BurgerConstructor.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
         image_mobile: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired
+        price: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
     })),
 };
 

@@ -28,4 +28,5 @@
 .link{
     display: inline-flex;
     align-items: center;
+    text-decoration: none;
 }

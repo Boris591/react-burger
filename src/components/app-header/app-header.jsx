@@ -6,11 +6,11 @@ function AppHeader(){
             <div className={header.container}>
                 <div className={header.col}>
                     <nav className={header.nav}>
-                        <a className={header.link + " p-5 mr-2"}>
+                        <a href="/#" className={header.link + " p-5 mr-2"}>
                             <BurgerIcon type="primary" />
                             <span className="text_type_main-default ml-2">Конструктор</span>
                         </a>
-                        <a className={header.link + " p-5"}>
+                        <a href="/#" className={header.link + " p-5"}>
                             <ListIcon type="secondary" />
                             <span className="text_type_main-default text_color_inactive ml-2">Лента заказов</span>
                         </a>
@@ -21,7 +21,7 @@ function AppHeader(){
                 </div>
                 <div className={header.col}>
                     <nav className={header.nav}>
-                        <a className={header.link + " p-5"}>
+                        <a href="/#" className={header.link + " p-5"}>
                             <ProfileIcon type="secondary" />
                             <span className="text_type_main-default text_color_inactive ml-2">Личный кабинет</span>
                         </a>
