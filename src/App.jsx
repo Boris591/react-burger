@@ -6,24 +6,30 @@ import app from './App.module.css';
 function App() {
     const apiIngredients = "https://norma.nomoreparties.space/api/ingredients";
     const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
+    const getProducts = async () => {
+        fetch(apiIngredients)
+            .then(async (res) => {
+                if (res.ok) {
+                    const data = await res.json();
+                    setProducts(data.data);
+                }else{
+                    setError(res);
+                }
+            }).catch(e => setError(e));
+    }
     useEffect(() =>{
-        const getProducts = async () => {
-            try {
-                const res = await fetch(apiIngredients);
-                const data = await res.json();
-                setProducts(data.data);
-            } catch (err) {
-                console.log(err.message);
-            }
-        }
-
         getProducts();
 
     }, []);
     return (
         <main className={app.main}>
             <AppHeader/>
-            <AppPanel data={products}/>
+            {error ?
+                <h1>Ошибка! </h1> :
+                <AppPanel data={products}/>
+            }
+
         </main>
     );
 }
