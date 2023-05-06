@@ -4,8 +4,8 @@ import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
 import PropTypes from 'prop-types';
-import Popup from "../popup/popup";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
 function BurgerIngredients(props) {
     const categories = useMemo(() => [
@@ -108,9 +108,9 @@ function BurgerIngredients(props) {
                 }
             </ScrollBlock>
             {showPopup &&
-                <Popup title="Детали ингридиента" closeModal={closePopup}>
+                <Modal title="Детали ингридиента" closeModal={closePopup}>
                     <IngredientDetails {...ingredientInfo} />
-                </Popup>
+                </Modal>
             }
         </div>
     );

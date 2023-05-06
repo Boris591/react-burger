@@ -4,8 +4,8 @@ import construct from "./burger-constructor.module.css";
 import ConstructorCard from "../constructor-card/constructor-card";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
-import Popup from "../popup/popup";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 function BurgerConstructor(props){
     const products = props.data;
     const orderNumber = '034536';
@@ -55,9 +55,9 @@ function BurgerConstructor(props){
                 </Button>
             </div>
             {showPopup &&
-                <Popup closeModal={togglePopup}>
+                <Modal closeModal={togglePopup}>
                     <OrderDetails number={orderNumber} />
-                </Popup>
+                </Modal>
             }
         </div>
     );
