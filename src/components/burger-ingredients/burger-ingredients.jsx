@@ -18,8 +18,7 @@ function BurgerIngredients(props) {
     const catLength = categories.length;
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const [showPopup, setShowPopup] = useState(false);
-    const [ingredientInfo, setIngredientInfo] = useState({});
+    const [ingredientInfo, setIngredientInfo] = useState(null);
     const ingredients = props.data;
 
     useEffect(() => {
@@ -60,12 +59,10 @@ function BurgerIngredients(props) {
     const openPopup = (id) => {
         const ingredient = ingredients.find(e => e._id === id);
         setIngredientInfo(ingredient);
-        setShowPopup(true);
     }
 
     const closePopup = () => {
-        setShowPopup(false);
-        setIngredientInfo({});
+        setIngredientInfo(null);
     }
 
     return (
@@ -107,7 +104,7 @@ function BurgerIngredients(props) {
                     )
                 }
             </ScrollBlock>
-            {showPopup &&
+            {ingredientInfo &&
                 <Modal title="Детали ингридиента" closeModal={closePopup}>
                     <IngredientDetails {...ingredientInfo} />
                 </Modal>
@@ -129,7 +126,7 @@ BurgerIngredients.propTypes = {
         carbohydrates: PropTypes.number.isRequired,
         calories: PropTypes.number.isRequired,
         _id: PropTypes.string.isRequired,
-    })),
+    }).isRequired).isRequired,
 };
 
 

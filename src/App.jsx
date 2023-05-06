@@ -2,25 +2,15 @@ import React, {useEffect, useState} from 'react';
 import AppHeader from "./components/app-header/app-header";
 import AppPanel from "./components/app-panel/app-panel";
 import app from './App.module.css';
+import {apiIngredients} from "./utils/constants";
+import {getElements} from "./utils/api-methods";
 
 function App() {
-    const apiIngredients = "https://norma.nomoreparties.space/api/ingredients";
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
-    const getProducts = async () => {
-        fetch(apiIngredients)
-            .then(async (res) => {
-                if (res.ok) {
-                    const data = await res.json();
-                    setProducts(data.data);
-                }else{
-                    setError(res);
-                }
-            }).catch(e => setError(e));
-    }
-    useEffect(() =>{
-        getProducts();
 
+    useEffect(() =>{
+        getElements(setProducts, setError, apiIngredients);
     }, []);
     return (
         <main className={app.main}>
