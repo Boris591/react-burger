@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function IngredientCard(props){
     return (
-        <div className={card.card} onClick={props.showInfo}>
+        <div className={card.card} onClick={() => props.showInfo(props.id)}>
             {props.count > 0 &&
                 <Counter count={props.count} size="default" />
             }
@@ -25,6 +25,7 @@ function IngredientCard(props){
 }
 
 IngredientCard.propTypes = {
+    id: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
     img: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,

@@ -1,8 +1,13 @@
 import overlay from "./modal-overlay.module.css";
-function ModalOverlay(){
+import PropTypes from "prop-types";
+function ModalOverlay(props){
     return (
-        <div className={overlay.wrapper}></div>
+        <div onClick={props.closeModal} className={overlay.wrapper}></div>
     );
 }
+
+ModalOverlay.propTypes = {
+    closeModal: PropTypes.func
+};
 
 export default ModalOverlay;

@@ -1,43 +1,50 @@
 import PropTypes from "prop-types";
+import ingredient from "./ingredient-details.module.css";
 
 function IngredientDetails(props){
+    const params = [
+        {
+            label: "Калории,ккал",
+            value: props.calories
+        },
+        {
+            label: "Белки, г",
+            value: props.proteins
+        },
+        {
+            label: "Жиры, г",
+            value: props.fat
+        },
+        {
+            label: "Углеводы, г",
+            value: props.carbohydrates
+        },
+    ];
     return (
-        <div className={"details"}>
-            <div className="img">
-                <img src={props.img} alt=""/>
+        <div className={ingredient.details + " mt-3"}>
+            <div className={ingredient.container}>
+                <div className={ingredient.img}>
+                    <img src={props.image_large} alt={props.name}/>
+                </div>
+                <div className={ingredient.name + " mt-4"}>
+                    <span className="text text_type_main-medium">{props.name}</span>
+                </div>
+                <ul className={ingredient.info + " mt-8"}>
+                    {params.map((element, i) =>
+                        <li key={i} className={ingredient['info-element']}>
+                            <span className="text text_type_main-default">{element.label}</span>
+                            <span className="text text_type_digits-default mt-2">{element.value}</span>
+                        </li>
+                    )}
+                </ul>
             </div>
-            <div className="name">
-                <span>{props.name}</span>
-            </div>
-            <div className="description">
-                <p>{props.description}</p>
-            </div>
-            <ul className="info">
-                <li className="info-element">
-                    <span className="info-label">Калории,ккал</span>
-                    <span className="info-desc">{props.calories}</span>
-                </li>
-                <li className="info-element">
-                    <span className="info-label">Белки, г</span>
-                    <span className="info-desc">{props.proteins}</span>
-                </li>
-                <li className="info-element">
-                    <span className="info-label">Жиры, г</span>
-                    <span className="info-desc">{props.fat}</span>
-                </li>
-                <li className="info-element">
-                    <span className="info-label">Углеводы, г</span>
-                    <span className="info-desc">{props.carbohydrates}</span>
-                </li>
-            </ul>
         </div>
     );
 }
 
 IngredientDetails.propTypes = {
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
     proteins: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,

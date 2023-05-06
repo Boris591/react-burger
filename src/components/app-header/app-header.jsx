@@ -6,7 +6,7 @@ function AppHeader(){
             <div className={header.container}>
                 <div className={header.col}>
                     <nav className={header.nav}>
-                        <a href="/#" className={header.link + " p-5 mr-2"}>
+                        <a href="/#" className={header.link + " p-5 mr-2 " + header.link_active}>
                             <BurgerIcon type="primary" />
                             <span className="text_type_main-default ml-2">Конструктор</span>
                         </a>

@@ -1,6 +1,7 @@
 .card{
     height: 208px;
     position: relative;
+    cursor: pointer;
 }
 
 .img{

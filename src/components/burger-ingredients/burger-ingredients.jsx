@@ -5,6 +5,7 @@ import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
 import PropTypes from 'prop-types';
 import Popup from "../popup/popup";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function BurgerIngredients(props) {
     const categories = useMemo(() => [
@@ -18,15 +19,7 @@ function BurgerIngredients(props) {
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
     const [showPopup, setShowPopup] = useState(false);
-    const [ingredientInfo, setIngredientInfo] = useState({
-        name: "",
-        image: "",
-        description: "",
-        proteins: 0,
-        fat: 0,
-        carbohydrates: 0,
-        calories: 0
-    });
+    const [ingredientInfo, setIngredientInfo] = useState({});
     const ingredients = props.data;
 
     useEffect(() => {
@@ -52,6 +45,10 @@ function BurgerIngredients(props) {
 
     }, [currentPosCategory, catRefs, categories]);
 
+    useEffect(() => {
+
+    }, []);
+
     const handleTab = (pos) => {
         setCurrentPosCategory(pos);
     };
@@ -60,8 +57,15 @@ function BurgerIngredients(props) {
         handleTab(catRefs[index].current.offsetTop);
     }
 
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
+    const openPopup = (id) => {
+        const ingredient = ingredients.find(e => e._id === id);
+        setIngredientInfo(ingredient);
+        setShowPopup(true);
+    }
+
+    const closePopup = () => {
+        setShowPopup(false);
+        setIngredientInfo({});
     }
 
     return (
@@ -87,8 +91,15 @@ function BurgerIngredients(props) {
                             <div className={burger.cards + " pl-4"}>
                                 {
                                     ingredients.filter(e => e.type === category.code).map((ingredient, i) =>
-                                        <IngredientCard showInfo={togglePopup} key={i} img={ingredient.image} price={ingredient.price}
-                                                        name={ingredient.name} count={1}/>
+                                        <IngredientCard
+                                            showInfo={openPopup}
+                                            id={ingredient._id}
+                                            key={i}
+                                            img={ingredient.image}
+                                            price={ingredient.price}
+                                            name={ingredient.name}
+                                            count={1}
+                                        />
                                     )
                                 }
                             </div>
@@ -97,7 +108,9 @@ function BurgerIngredients(props) {
                 }
             </ScrollBlock>
             {showPopup &&
-                <Popup title="Детали ингридиента"></Popup>
+                <Popup title="Детали ингридиента" closeModal={closePopup}>
+                    <IngredientDetails {...ingredientInfo} />
+                </Popup>
             }
         </div>
     );
@@ -109,7 +122,13 @@ BurgerIngredients.propTypes = {
         image: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired
+        price: PropTypes.number.isRequired,
+        image_large: PropTypes.string.isRequired,
+        proteins: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired,
+        calories: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
     })),
 };
 

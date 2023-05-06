@@ -4,11 +4,15 @@ import construct from "./burger-constructor.module.css";
 import ConstructorCard from "../constructor-card/constructor-card";
 import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
+import Popup from "../popup/popup";
+import OrderDetails from "../order-details/order-details";
 function BurgerConstructor(props){
     const products = props.data;
+    const orderNumber = '034536';
     const blockedProductId = "643d69a5c3f7b9001cfa093c";
     const [blockedElements, setBlockedElements] = useState([]);
     const [finalPrice, setFinalPrice] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         const element = products.find(e => e._id === blockedProductId);
@@ -19,6 +23,10 @@ function BurgerConstructor(props){
         const sumDef = products.reduce((sum, el) => sum + el.price, 0);
         setFinalPrice(sumBlocked + sumDef);
     },[products, blockedElements]);
+
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
+    }
 
     return (
         <div className={"pt-25"}>
@@ -42,10 +50,15 @@ function BurgerConstructor(props){
                     <span className="text text_type_digits-medium mr-2">{finalPrice}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button htmlType="button" type="primary" size="large">
+                <Button onClick={togglePopup} htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div>
+            {showPopup &&
+                <Popup closeModal={togglePopup}>
+                    <OrderDetails number={orderNumber} />
+                </Popup>
+            }
         </div>
     );
 }
