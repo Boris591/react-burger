@@ -1,0 +1,19 @@
+.title{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.wrapper :global .simplebar-track.simplebar-vertical{
+    margin-bottom: 52px;
+}
+
+.cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 24px;
+    grid-row-gap: 32px;
+}
+
+.title-section{
+    margin-top: 0;
+}
