@@ -1,11 +1,11 @@
-import {createRef, useEffect, useMemo, useState} from "react";
+import {createRef, useContext, useEffect, useMemo, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
-import PropTypes from 'prop-types';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import {BurgerContext} from "../../services/burger-context";
 
 function BurgerIngredients(props) {
     const categories = useMemo(() => [
@@ -19,7 +19,7 @@ function BurgerIngredients(props) {
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
     const [ingredientInfo, setIngredientInfo] = useState(null);
-    const ingredients = props.data;
+    const ingredients = useContext(BurgerContext);
 
     useEffect(() => {
         // add or remove refs
@@ -113,21 +113,6 @@ function BurgerIngredients(props) {
     );
 
 }
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image_large: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        _id: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
-};
 
 
 export default BurgerIngredients;

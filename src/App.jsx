@@ -4,6 +4,7 @@ import AppPanel from "./components/app-panel/app-panel";
 import app from './App.module.css';
 import {apiIngredients} from "./utils/constants";
 import {getElements} from "./utils/api-methods";
+import {BurgerContext} from "./services/burger-context";
 
 function App() {
     const [products, setProducts] = useState([]);
@@ -17,7 +18,9 @@ function App() {
             <AppHeader/>
             {error ?
                 <h1>Ошибка! </h1> :
-                <AppPanel data={products}/>
+                <BurgerContext.Provider value={products}>
+                    <AppPanel data={products}/>
+                </BurgerContext.Provider>
             }
 
         </main>

@@ -2,12 +2,12 @@ import ScrollBlock from "../scroll-block/scroll-block";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import construct from "./burger-constructor.module.css";
 import ConstructorCard from "../constructor-card/constructor-card";
-import PropTypes from "prop-types";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-function BurgerConstructor(props){
-    const products = props.data;
+import {BurgerContext} from "../../services/burger-context";
+function BurgerConstructor(){
+    const products = useContext(BurgerContext);
     const orderNumber = '034536';
     const blockedProductId = "643d69a5c3f7b9001cfa093c";
     const [blockedElements, setBlockedElements] = useState([]);
@@ -62,14 +62,5 @@ function BurgerConstructor(props){
         </div>
     );
 }
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        image_mobile: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        _id: PropTypes.string.isRequired,
-    })),
-};
 
 export default BurgerConstructor;
