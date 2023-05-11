@@ -19,7 +19,7 @@ function App() {
             {error ?
                 <h1>Ошибка! </h1> :
                 <BurgerContext.Provider value={products}>
-                    <AppPanel data={products}/>
+                    <AppPanel />
                 </BurgerContext.Provider>
             }
 
