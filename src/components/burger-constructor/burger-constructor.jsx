@@ -6,9 +6,10 @@ import {useContext, useEffect, useState} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {BurgerContext} from "../../services/burger-context";
-import {apiOrder} from "../../utils/constants";
+import {BASE_URL, ORDER_POINT} from "../../utils/constants";
 import {getOrder} from "../../utils/api-methods";
 function BurgerConstructor(){
+    const order_url = BASE_URL + ORDER_POINT;
     const products = useContext(BurgerContext);
     const [orderNumber, setOrderNumber] = useState(null);
     const [error, setError] = useState(null);
@@ -37,7 +38,7 @@ function BurgerConstructor(){
 
     const startOrder = () => {
         const ids = activeElements.map(item => item._id);
-        getOrder(setOrderNumber, setError, apiOrder, {
+        getOrder(setOrderNumber, setError, order_url, {
             "ingredients": [blockedProductId, ...ids]
         });
     }
