@@ -9,18 +9,19 @@ import {BASE_URL, ORDER_POINT} from "../../utils/constants";
 import {getOrder} from "../../utils/api-methods";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_ELEMENT} from "../../services/actions/construct";
+import {ADD_ELEMENT, UPDATE_BUNS, UPDATE_PRICE} from "../../services/actions/construct";
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredientsList from "../constructor-ingredients-list/constructor-ingredients-list";
+import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
 function BurgerConstructor(){
     const dispatch = useDispatch();
     const order_url = BASE_URL + ORDER_POINT;
     const [orderNumber, setOrderNumber] = useState(null);
     const [error, setError] = useState(null);
     const blockedProductId = "643d69a5c3f7b9001cfa093c";
-    const [blockedElements, setBlockedElements] = useState([]);
+    const blockedElements = useSelector(store => store.construct.buns);
     const activeElements = useSelector(store => store.construct.items);
-    const [finalPrice, setFinalPrice] = useState(0);
+    const finalPrice = useSelector(store => store.construct.price);
 
     const [{ isHover }, dropTargerRef] = useDrop({
         accept: 'ingredient',
@@ -28,18 +29,51 @@ function BurgerConstructor(){
             isHover: monitor.isOver()
         }),
         drop(item) {
-            dispatch({
-                type: ADD_ELEMENT,
-                item: {
-                    ...item,
-                    dragId: uuidv4(),
+            if(item.type === 'bun'){
+                if(blockedElements.length > 0){
+                    dispatch({
+                        type: UPDATE_COUNT_INGREDIENT,
+                        id: blockedElements[0].id,
+                        count: 0
+                    })
                 }
-            })
+                dispatch({
+                    type: UPDATE_BUNS,
+                    buns: [
+                        item,
+                        item
+                    ]
+                });
+                dispatch({
+                    type: UPDATE_COUNT_INGREDIENT,
+                    id: item.id,
+                    count: 2
+                });
+            }else{
+                dispatch({
+                    type: ADD_ELEMENT,
+                    item: {
+                        ...item,
+                        dragId: uuidv4(),
+                    }
+                });
+                dispatch({
+                    type: INCREASE_COUNT_INGREDIENT,
+                    id: item.id,
+                    count: 2
+                });
+            }
         }
     });
 
-
-
+    useEffect(() => {
+        const sumBlocked = blockedElements.reduce((sum, el) => sum + el.price, 0);
+        const sumDef = activeElements.reduce((sum, el) => sum + el.price, 0);
+        dispatch({
+            type: UPDATE_PRICE,
+            price: sumBlocked + sumDef
+        });
+    },[dispatch, activeElements, blockedElements]);
 
     const closePopup = () => {
         setOrderNumber(null);
@@ -56,7 +90,7 @@ function BurgerConstructor(){
         <div ref={dropTargerRef} className={"pt-25"}>
             <div className={construct.list}>
                 {blockedElements.length > 0 &&
-                    <ConstructorCard type="first" blocked img={blockedElements[0].image_mobile} price={blockedElements[0].price} name={blockedElements[0].name + " вверх"} />
+                    <ConstructorCard tp='bun' type="first" blocked img={blockedElements[0].image_mobile} price={blockedElements[0].price} name={blockedElements[0].name + " вверх"} />
                 }
                 <ScrollBlock height={'464px'}>
                     {
@@ -65,7 +99,7 @@ function BurgerConstructor(){
                     }
                 </ScrollBlock>
                 {blockedElements.length > 1 &&
-                    <ConstructorCard type="last" blocked img={blockedElements[1].image_mobile} price={blockedElements[1].price} name={blockedElements[1].name + " низ"} />
+                    <ConstructorCard tp='bun' type="last" blocked img={blockedElements[1].image_mobile} price={blockedElements[1].price} name={blockedElements[1].name + " низ"} />
                 }
             </div>
             <div className={construct.result + " mt-10"}>

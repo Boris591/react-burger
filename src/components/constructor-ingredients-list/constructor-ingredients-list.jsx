@@ -21,7 +21,7 @@ function ConstructorIngredientsList(props){
         <>
             {
                 props.ingredients.map((prod, i) =>
-                    <ConstructorCard key={i} index={i} tp={prod.type} id={prod._id} type="default" blocked={false} img={prod.image_mobile} price={prod.price} name={prod.name} moveCard={moveCard} />
+                    <ConstructorCard dragId={prod.dragId} key={i} index={i} tp={prod.type} id={prod.id} type="default" blocked={false} img={prod.image_mobile} price={prod.price} name={prod.name} moveCard={moveCard} />
                 )
             }
         </>

@@ -95,7 +95,9 @@ function BurgerIngredients(props) {
                                             img={ingredient.image}
                                             price={ingredient.price}
                                             name={ingredient.name}
-                                            count={1}
+                                            type={ingredient.type}
+                                            image_mobile={ingredient.image_mobile}
+                                            count={ingredient.count}
                                         />
                                     )
                                 }
