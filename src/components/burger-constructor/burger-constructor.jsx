@@ -2,35 +2,44 @@ import ScrollBlock from "../scroll-block/scroll-block";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import construct from "./burger-constructor.module.css";
 import ConstructorCard from "../constructor-card/constructor-card";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import {BurgerContext} from "../../services/burger-context";
 import {BASE_URL, ORDER_POINT} from "../../utils/constants";
 import {getOrder} from "../../utils/api-methods";
+import {useDispatch, useSelector} from "react-redux";
+import {useDrop} from "react-dnd";
+import {ADD_ELEMENT} from "../../services/actions/construct";
+import { v4 as uuidv4 } from 'uuid';
+import ConstructorIngredientsList from "../constructor-ingredients-list/constructor-ingredients-list";
 function BurgerConstructor(){
+    const dispatch = useDispatch();
     const order_url = BASE_URL + ORDER_POINT;
-    const products = useContext(BurgerContext);
     const [orderNumber, setOrderNumber] = useState(null);
     const [error, setError] = useState(null);
     const blockedProductId = "643d69a5c3f7b9001cfa093c";
     const [blockedElements, setBlockedElements] = useState([]);
-    const [activeElements, setActiveElements] = useState([]);
+    const activeElements = useSelector(store => store.construct.items);
     const [finalPrice, setFinalPrice] = useState(0);
 
-    useEffect(() => {
-        const element = products.find(e => e._id === blockedProductId);
-        setActiveElements(
-            products.filter(e => e.type !== 'bun')
-        );
-        if(element) setBlockedElements([element, element]);
-    },[products]);
+    const [{ isHover }, dropTargerRef] = useDrop({
+        accept: 'ingredient',
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        }),
+        drop(item) {
+            dispatch({
+                type: ADD_ELEMENT,
+                item: {
+                    ...item,
+                    dragId: uuidv4(),
+                }
+            })
+        }
+    });
 
-    useEffect(() => {
-        const sumBlocked = blockedElements.reduce((sum, el) => sum + el.price, 0);
-        const sumDef = activeElements.reduce((sum, el) => sum + el.price, 0);
-        setFinalPrice(sumBlocked + sumDef);
-    },[activeElements, blockedElements]);
+
+
 
     const closePopup = () => {
         setOrderNumber(null);
@@ -44,16 +53,15 @@ function BurgerConstructor(){
     }
 
     return (
-        <div className={"pt-25"}>
+        <div ref={dropTargerRef} className={"pt-25"}>
             <div className={construct.list}>
                 {blockedElements.length > 0 &&
                     <ConstructorCard type="first" blocked img={blockedElements[0].image_mobile} price={blockedElements[0].price} name={blockedElements[0].name + " вверх"} />
                 }
                 <ScrollBlock height={'464px'}>
                     {
-                        activeElements.map((prod, i) =>
-                            <ConstructorCard key={i} type="default" blocked={false} img={prod.image_mobile} price={prod.price} name={prod.name} />
-                        )
+                        activeElements &&
+                        <ConstructorIngredientsList ingredients={activeElements} />
                     }
                 </ScrollBlock>
                 {blockedElements.length > 1 &&

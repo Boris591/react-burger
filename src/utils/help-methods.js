@@ -1,4 +1,4 @@
-export function request(url, options = {}) {
+export const request = (url, options = {}) => {
     return fetch(url, options).then(checkResponse)
 }
 

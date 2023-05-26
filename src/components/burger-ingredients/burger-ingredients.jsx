@@ -1,11 +1,11 @@
-import {createRef, useContext, useEffect, useMemo, useState} from "react";
+import {createRef, useEffect, useMemo, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import {BurgerContext} from "../../services/burger-context";
+import {useSelector} from "react-redux";
 
 function BurgerIngredients(props) {
     const categories = useMemo(() => [
@@ -19,7 +19,7 @@ function BurgerIngredients(props) {
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
     const [ingredientInfo, setIngredientInfo] = useState(null);
-    const ingredients = useContext(BurgerContext);
+    const ingredients = useSelector(store => store.ingredients.ingredients);
 
     useEffect(() => {
         // add or remove refs

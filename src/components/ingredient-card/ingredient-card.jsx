@@ -1,10 +1,19 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import card from "./ingredient-card.module.css";
 import PropTypes from "prop-types";
+import {useDrag} from "react-dnd";
 
 function IngredientCard(props){
+    const [{ opacity }, dragRef] = useDrag({
+        type: 'ingredient',
+        item: { ...props },
+        collect: monitor => ({
+            opacity: monitor.isDragging() ? 0.5 : 1
+        })
+    });
+
     return (
-        <div className={card.card} onClick={() => props.showInfo(props.id)}>
+        <div ref={dragRef} style={{ opacity }} className={card.card} onClick={() => props.showInfo(props.id)}>
             {props.count > 0 &&
                 <Counter count={props.count} size="default" />
             }
