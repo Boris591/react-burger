@@ -1,0 +1,43 @@
+import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, RESET_ORDER_NUMBER} from "../actions/order";
+
+const initialState = {
+    ingredients: [],
+    number: '',
+    orderRequest: false,
+    orderFailed: false,
+};
+
+export const orderReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case GET_ORDER_REQUEST: {
+            return {
+                ...state,
+                orderRequest: true,
+            };
+        }
+        case GET_ORDER_SUCCESS: {
+            return {
+                ...state,
+                orderRequest: false,
+                orderFailed: false,
+                number: action.number
+            };
+        }
+        case GET_ORDER_FAILED: {
+            return {
+                ...state,
+                orderFailed: true,
+                orderRequest: false,
+            };
+        }
+        case RESET_ORDER_NUMBER: {
+            return {
+                ...state,
+                number: ''
+            };
+        }
+        default: {
+            return state;
+        }
+    }
+};

@@ -5,8 +5,7 @@ import ConstructorCard from "../constructor-card/constructor-card";
 import {useEffect, useState} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import {BASE_URL, ORDER_POINT} from "../../utils/constants";
-import {getOrder} from "../../utils/api-methods";
+import {getOrder, RESET_ORDER_NUMBER} from "../../services/actions/order";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {ADD_ELEMENT, UPDATE_BUNS, UPDATE_PRICE} from "../../services/actions/construct";
@@ -15,10 +14,8 @@ import ConstructorIngredientsList from "../constructor-ingredients-list/construc
 import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
 function BurgerConstructor(){
     const dispatch = useDispatch();
-    const order_url = BASE_URL + ORDER_POINT;
-    const [orderNumber, setOrderNumber] = useState(null);
+    const orderNumber = useSelector(store => store.order.number);
     const [error, setError] = useState(null);
-    const blockedProductId = "643d69a5c3f7b9001cfa093c";
     const blockedElements = useSelector(store => store.construct.buns);
     const activeElements = useSelector(store => store.construct.items);
     const finalPrice = useSelector(store => store.construct.price);
@@ -76,14 +73,12 @@ function BurgerConstructor(){
     },[dispatch, activeElements, blockedElements]);
 
     const closePopup = () => {
-        setOrderNumber(null);
+        dispatch({type: RESET_ORDER_NUMBER});
     }
 
     const startOrder = () => {
-        const ids = activeElements.map(item => item._id);
-        getOrder(setOrderNumber, setError, order_url, {
-            "ingredients": [blockedProductId, ...ids]
-        });
+        const ids = [...activeElements, ...blockedElements].map(item => item.id);
+        dispatch(getOrder(ids));
     }
 
     return (
