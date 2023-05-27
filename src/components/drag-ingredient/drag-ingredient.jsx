@@ -1,5 +1,6 @@
 import {useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
+import PropTypes from "prop-types";
 
 function DragIngredient(props){
     const ref = useRef(null);
@@ -17,7 +18,7 @@ function DragIngredient(props){
             }
 
             const dragIndex = item.index;
-            const hoverIndex = props.index;
+            const hoverIndex = index;
 
             if (dragIndex === hoverIndex) {
                 return;
@@ -67,5 +68,14 @@ function DragIngredient(props){
         </div>
     );
 }
+
+DragIngredient.propTypes = {
+    id: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    class: PropTypes.string.isRequired,
+    tp: PropTypes.string.isRequired,
+    moveCard: PropTypes.func.isRequired,
+    children: PropTypes.array.isRequired
+};
 
 export default DragIngredient;

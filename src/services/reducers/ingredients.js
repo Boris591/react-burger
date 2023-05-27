@@ -4,13 +4,15 @@ import {
     GET_INGREDIENTS_SUCCESS,
     INCREASE_COUNT_INGREDIENT,
     DECREASE_COUNT_INGREDIENT,
-    UPDATE_COUNT_INGREDIENT
+    UPDATE_COUNT_INGREDIENT,
+    UPDATE_INGREDIENT_INFO
 } from "../actions/ingredients";
 
 const initialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
+    ingredientInfo: null
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -58,6 +60,12 @@ export const ingredientsReducer = (state = initialState, action) => {
                 ingredients: [...state.ingredients].map(item =>
                     item._id === action.id ? { ...item, count: action.count } : item
                 )
+            };
+        }
+        case UPDATE_INGREDIENT_INFO: {
+            return {
+                ...state,
+               ingredientInfo: action.info
             };
         }
         default: {

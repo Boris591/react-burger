@@ -11,7 +11,6 @@ export const getOrder = (ids) => {
         dispatch({
             type: GET_ORDER_REQUEST
         });
-        console.log(ids);
 
         request(BASE_URL + ORDER_POINT, {
             method: "POST",

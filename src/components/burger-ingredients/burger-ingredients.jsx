@@ -5,9 +5,11 @@ import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
 
-function BurgerIngredients(props) {
+function BurgerIngredients() {
+    const dispatch = useDispatch();
     const categories = useMemo(() => [
         {name: "Булки", code: "bun"},
         {name: "Соусы", code: "sauce"},
@@ -18,7 +20,7 @@ function BurgerIngredients(props) {
     const catLength = categories.length;
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const [ingredientInfo, setIngredientInfo] = useState(null);
+    const ingredientInfo = useSelector(store => store.ingredients.ingredientInfo);
     const ingredients = useSelector(store => store.ingredients.ingredients);
 
     useEffect(() => {
@@ -57,12 +59,17 @@ function BurgerIngredients(props) {
     }
 
     const openPopup = (id) => {
-        const ingredient = ingredients.find(e => e._id === id);
-        setIngredientInfo(ingredient);
+        dispatch({
+            type: UPDATE_INGREDIENT_INFO,
+            info: ingredients.find(e => e._id === id)
+        });
     }
 
     const closePopup = () => {
-        setIngredientInfo(null);
+        dispatch({
+            type: UPDATE_INGREDIENT_INFO,
+            info: null
+        });
     }
 
     return (

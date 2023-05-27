@@ -21,6 +21,10 @@
     height: 100%;
 }
 
+.delete{
+    cursor: pointer;
+}
+
 .main:global.default{
     border-radius: 40px;
 }

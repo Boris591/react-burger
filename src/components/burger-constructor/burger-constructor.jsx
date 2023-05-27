@@ -2,7 +2,7 @@ import ScrollBlock from "../scroll-block/scroll-block";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import construct from "./burger-constructor.module.css";
 import ConstructorCard from "../constructor-card/constructor-card";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {getOrder, RESET_ORDER_NUMBER} from "../../services/actions/order";
@@ -15,7 +15,7 @@ import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services
 function BurgerConstructor(){
     const dispatch = useDispatch();
     const orderNumber = useSelector(store => store.order.number);
-    const [error, setError] = useState(null);
+    const error = useSelector(store => store.order.orderFailed);
     const blockedElements = useSelector(store => store.construct.buns);
     const activeElements = useSelector(store => store.construct.items);
     const finalPrice = useSelector(store => store.construct.price);
@@ -77,13 +77,22 @@ function BurgerConstructor(){
     }
 
     const startOrder = () => {
-        const ids = [...activeElements, ...blockedElements].map(item => item.id);
+        const ids = {
+            ingredients: [...activeElements, ...blockedElements].map(item => item.id)
+        };
         dispatch(getOrder(ids));
     }
 
     return (
-        <div ref={dropTargerRef} className={"pt-25"}>
-            <div className={construct.list}>
+        <div className={"pt-25"}>
+            <div ref={dropTargerRef} className={construct.list}>
+                {(isHover || (blockedElements.length === 0 && activeElements.length === 0)) &&
+                    <div className={construct.help}>
+                        <span className={"text_type_main-small"}>
+                            Перетащите ингридиенты сюда
+                        </span>
+                    </div>
+                }
                 {blockedElements.length > 0 &&
                     <ConstructorCard tp='bun' type="first" blocked img={blockedElements[0].image_mobile} price={blockedElements[0].price} name={blockedElements[0].name + " вверх"} />
                 }
@@ -97,15 +106,17 @@ function BurgerConstructor(){
                     <ConstructorCard tp='bun' type="last" blocked img={blockedElements[1].image_mobile} price={blockedElements[1].price} name={blockedElements[1].name + " низ"} />
                 }
             </div>
-            <div className={construct.result + " mt-10"}>
-                <div className={construct.price + " mr-10"}>
-                    <span className="text text_type_digits-medium mr-2">{finalPrice}</span>
-                    <CurrencyIcon type="primary" />
+            {(blockedElements.length > 0 || activeElements.length > 0) &&
+                <div className={construct.result + " mt-10"}>
+                    <div className={construct.price + " mr-10"}>
+                        <span className="text text_type_digits-medium mr-2">{finalPrice}</span>
+                        <CurrencyIcon type="primary" />
+                    </div>
+                    <Button onClick={startOrder} htmlType="button" type="primary" size="large">
+                        Оформить заказ
+                    </Button>
                 </div>
-                <Button onClick={startOrder} htmlType="button" type="primary" size="large">
-                    Оформить заказ
-                </Button>
-            </div>
+            }
             {orderNumber &&
                 <Modal closeModal={closePopup}>
                     {error ?

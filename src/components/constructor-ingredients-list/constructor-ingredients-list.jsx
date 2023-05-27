@@ -2,6 +2,7 @@ import ConstructorCard from "../constructor-card/constructor-card";
 import {useDispatch} from "react-redux";
 import {useCallback} from "react";
 import {UPDATE_ITEMS} from "../../services/actions/construct";
+import PropTypes from "prop-types";
 
 function ConstructorIngredientsList(props){
     const dispatch = useDispatch();
@@ -28,4 +29,14 @@ function ConstructorIngredientsList(props){
     );
 }
 
+ConstructorIngredientsList.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        dragId: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+    })).isRequired
+};
 export default ConstructorIngredientsList;

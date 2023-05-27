@@ -51,14 +51,14 @@ function ConstructorCard(props){
                                 <img src={props.img} alt={props.name}/>
                             </div>
                             <span className={card.name + " text_type_main-default mr-5"}>
-                    {props.name}
-                </span>
+                                {props.name}
+                            </span>
                             <div className={card.other}>
                                 <div className={card.price + " mr-5"}>
                                     <span className="text text_type_digits-default">{props.price}</span>
                                     <CurrencyIcon type="primary" />
                                 </div>
-                                <div onClick={deleteElement}>
+                                <div onClick={deleteElement} className={card.delete}>
                                     <DeleteIcon type="primary" />
                                 </div>
                             </div>
@@ -71,11 +71,14 @@ function ConstructorCard(props){
 
 ConstructorCard.propTypes = {
     id: PropTypes.string,
-    count: PropTypes.number,
     img: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     blocked: PropTypes.bool.isRequired,
+    dragId: PropTypes.string,
+    moveCard: PropTypes.func,
+    tp: PropTypes.string,
+    index: PropTypes.number,
     type: PropTypes.oneOf(['first', 'default', 'last']),
 };
 
