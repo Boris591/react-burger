@@ -3,11 +3,13 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
-import PropTypes from 'prop-types';
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
 
-function BurgerIngredients(props) {
+function BurgerIngredients() {
+    const dispatch = useDispatch();
     const categories = useMemo(() => [
         {name: "Булки", code: "bun"},
         {name: "Соусы", code: "sauce"},
@@ -18,8 +20,8 @@ function BurgerIngredients(props) {
     const catLength = categories.length;
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const [ingredientInfo, setIngredientInfo] = useState(null);
-    const ingredients = props.data;
+    const ingredientInfo = useSelector(store => store.ingredients.ingredientInfo);
+    const ingredients = useSelector(store => store.ingredients.ingredients);
 
     useEffect(() => {
         // add or remove refs
@@ -57,12 +59,17 @@ function BurgerIngredients(props) {
     }
 
     const openPopup = (id) => {
-        const ingredient = ingredients.find(e => e._id === id);
-        setIngredientInfo(ingredient);
+        dispatch({
+            type: UPDATE_INGREDIENT_INFO,
+            info: ingredients.find(e => e._id === id)
+        });
     }
 
     const closePopup = () => {
-        setIngredientInfo(null);
+        dispatch({
+            type: UPDATE_INGREDIENT_INFO,
+            info: null
+        });
     }
 
     return (
@@ -95,7 +102,9 @@ function BurgerIngredients(props) {
                                             img={ingredient.image}
                                             price={ingredient.price}
                                             name={ingredient.name}
-                                            count={1}
+                                            type={ingredient.type}
+                                            image_mobile={ingredient.image_mobile}
+                                            count={ingredient.count}
                                         />
                                     )
                                 }
@@ -113,21 +122,6 @@ function BurgerIngredients(props) {
     );
 
 }
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image_large: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        _id: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
-};
 
 
 export default BurgerIngredients;
