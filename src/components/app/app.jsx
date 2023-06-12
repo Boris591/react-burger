@@ -1,6 +1,6 @@
 import React from 'react';
 import AppHeader from "../app-header/app-header";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import Login from "../../pages/login/login";
 import Register from "../../pages/register/register";
 import Profile from "../../pages/profile/profile";
@@ -8,6 +8,11 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import Main from "../../pages/main/main";
 import {ProtectedRouteElement} from "../protected-route-element/protected-route-element";
+import ModalSwitch from "../modal-switch/modal-switch";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
 function App() {
     return (
@@ -21,6 +26,7 @@ function App() {
                 <Route path="/reset-password" element={<ProtectedRouteElement auth={false} redirect="/login" element={<ResetPassword />} />} />
                 <Route path="/forgot-password" element={<ProtectedRouteElement auth={false} redirect="/" element={<ForgotPassword />} />} />
             </Routes>
+            <ModalSwitch/>
         </Router>
     );
 }

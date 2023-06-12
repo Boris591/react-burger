@@ -27,6 +27,9 @@ export const FORGOT_PASS_REQUEST_FAILED = 'FORGOT_PASS_REQUEST_FAILED';
 export const PASS_RESET_REQUEST = 'FORGOT_PASS_RESET_REQUEST';
 export const PASS_RESET_REQUEST_SUCCESS = 'FORGOT_PASS_RESET_REQUEST_SUCCESS';
 export const PASS_RESET_REQUEST_FAILED = 'FORGOT_PASS_RESET_REQUEST_FAILED';
+export const UPDATE_USER_INFO_REQUEST = 'UPDATE_USER_INFO_REQUEST';
+export const UPDATE_USER_INFO_REQUEST_SUCCESS = 'UPDATE_USER_INFO_REQUEST_SUCCESS';
+export const UPDATE_USER_INFO_REQUEST_FAILED = 'UPDATE_USER_INFO_REQUEST_FAILED';
 
 export const getNewReg = (params) => {
     return function(dispatch) {
@@ -120,6 +123,39 @@ export const getResetPass = (params) => {
     }
 }
 
+export const updateUserInfo = (params) => {
+    return function(dispatch) {
+        dispatch({
+            type: UPDATE_USER_INFO_REQUEST
+        });
+
+        request(BASE_URL + USER_POINT, {
+            method: 'PATCH',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                authorization: getCookie('accessToken')
+            },
+            body: JSON.stringify(params),
+        }).then(data => {
+            dispatch(
+                {
+                    type: UPDATE_USER_INFO_REQUEST_SUCCESS,
+                    user: data.user
+                })
+        })
+            .catch((err) => {
+                if (err.status === 403) {
+                    dispatch(refreshTokenRequest(params));
+                }else {
+                    dispatch({
+                        type: UPDATE_USER_INFO_REQUEST_FAILED
+                    });
+                }
+            });
+    }
+}
+
 export const getTokenRequest = () => {
     return function(dispatch) {
         dispatch({
@@ -152,7 +188,7 @@ export const getTokenRequest = () => {
     }
 }
 
-export const refreshTokenRequest = () => {
+export const refreshTokenRequest = (info=false) => {
     return function(dispatch) {
         dispatch({
             type: TOKEN_REFRESH_REQUEST
@@ -172,7 +208,11 @@ export const refreshTokenRequest = () => {
                 {
                     type: TOKEN_REFRESH_REQUEST_SUCCESS
                 });
-            dispatch(getTokenRequest());
+            if(!info){
+                dispatch(getTokenRequest());
+            }else{
+                dispatch(updateUserInfo(info));
+            }
         })
             .catch(() => dispatch({type: TOKEN_REFRESH_REQUEST_FAILED}));
     }

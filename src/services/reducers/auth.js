@@ -10,7 +10,7 @@ import {
     TOKEN_REFRESH_REQUEST_SUCCESS,
     TOKEN_REQUEST,
     TOKEN_REQUEST_FAILED,
-    TOKEN_REQUEST_SUCCESS
+    TOKEN_REQUEST_SUCCESS, UPDATE_USER_INFO_REQUEST, UPDATE_USER_INFO_REQUEST_FAILED, UPDATE_USER_INFO_REQUEST_SUCCESS
 } from "../actions/auth";
 
 const initialState = {
@@ -30,6 +30,8 @@ const initialState = {
     passResetRequest: false,
     passResetSuccess: false,
     passResetFailed: false,
+    updateUserInfoRequest: false,
+    updateUserInfoFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -160,6 +162,27 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 passResetFailed: true,
                 passResetRequest: false,
+            };
+        }
+        case UPDATE_USER_INFO_REQUEST: {
+            return {
+                ...state,
+                updateUserInfoRequest: true,
+            };
+        }
+        case UPDATE_USER_INFO_REQUEST_SUCCESS: {
+            return {
+                ...state,
+                user: action.user,
+                updateUserInfoRequest: false,
+                updateUserInfoFailed: false,
+            };
+        }
+        case UPDATE_USER_INFO_REQUEST_FAILED: {
+            return {
+                ...state,
+                updateUserInfoRequest: false,
+                updateUserInfoFailed: true,
             };
         }
         default: {

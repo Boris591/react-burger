@@ -12,9 +12,13 @@ import {ADD_ELEMENT, UPDATE_BUNS, UPDATE_PRICE} from "../../services/actions/con
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredientsList from "../constructor-ingredients-list/constructor-ingredients-list";
 import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
+import {useNavigate} from "react-router-dom";
+
 function BurgerConstructor(){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const orderNumber = useSelector(store => store.order.number);
+    const user = useSelector(store => store.auth.user);
     const error = useSelector(store => store.order.orderFailed);
     const blockedElements = useSelector(store => store.construct.buns);
     const activeElements = useSelector(store => store.construct.items);
@@ -77,6 +81,10 @@ function BurgerConstructor(){
     }
 
     const startOrder = () => {
+        if(!user){
+            navigate("/login");
+            return;
+        }
         const ids = {
             ingredients: [...activeElements, ...blockedElements].map(item => item.id)
         };

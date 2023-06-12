@@ -1,0 +1,36 @@
+.page{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 120px;
+}
+.container{
+    width: 100%;
+    max-width: 1240px;
+    display: grid;
+    grid-template-columns: 380px 480px;
+    grid-column-gap: 60px;
+}
+
+.menu{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li{
+    list-style-type: none;
+    padding: 10px 0;
+}
+
+.menu li span{
+    color: #8585AD;
+}
+
+.menu li a{
+    text-decoration: none;
+}
+
+.menu li :global .active span{
+    color: #F2F2F3;
+}
