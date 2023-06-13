@@ -20,8 +20,8 @@ function IngredientCard(props){
             key={ingredientId}
             to={{
                 pathname: `/ingredients/${ingredientId}`,
-                state: { background: location },
             }}
+            state={{background: location}}
         >
             <div ref={dragRef} style={{ opacity }} className={card.card} onClick={() => props.showInfo(props.id)}>
                 {props.count > 0 &&

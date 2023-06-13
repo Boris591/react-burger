@@ -113,11 +113,7 @@ function BurgerIngredients() {
                     )
                 }
             </ScrollBlock>
-            {ingredientInfo &&
-                <Modal title="Детали ингридиента" closeModal={closePopup}>
-                    <IngredientDetails {...ingredientInfo} />
-                </Modal>
-            }
+
         </div>
     );
 

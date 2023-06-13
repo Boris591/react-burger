@@ -3,6 +3,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import {UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
 import {Route, Router, Routes, useLocation, useNavigate} from "react-router-dom";
+import Main from "../../pages/main/main";
 
 const ModalSwitch = () => {
     const dispatch = useDispatch();
@@ -22,9 +23,7 @@ const ModalSwitch = () => {
     return (
         <>
             <Routes location={background || location}>
-                <Route path='/ingredients/:ingredientId' element={<IngredientDetails {...ingredientInfo} />} />
-            </Routes>
-            {background && (
+                <Route path='/' element={<Main />} />
                 <Route
                     path='/ingredients/:ingredientId'
                     element={
@@ -33,7 +32,8 @@ const ModalSwitch = () => {
                         </Modal>
                     }
                 />
-            )}
+            </Routes>
+            <Route path='/ingredients/:ingredientId' element={<IngredientDetails {...ingredientInfo} />} />
         </>
     );
 

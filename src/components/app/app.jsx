@@ -15,19 +15,50 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 
 function App() {
+    const location = useLocation();
+    let background = location.state && location.state.background;
+    const ingredientInfo = useSelector(store => store.ingredients.ingredientInfo);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const closePopup = () => {
+        dispatch({
+            type: UPDATE_INGREDIENT_INFO,
+            info: null
+        });
+        navigate(-1);
+    };
+    console.log(location.state);
     return (
-        <Router>
+        <>
             <AppHeader/>
-            <Routes>
-                <Route path="/" element={<Main />} />
+
+            <Routes location={background || location}>
+
+                <Route path="/" element={<Main />} >
+
+                </Route>
+                <Route path='/ingredients/:ingredientId' element={<IngredientDetails {...ingredientInfo} />} />
+
                 <Route path="/login" element={<ProtectedRouteElement auth={false} redirect="/" element={<Login />} />} />
                 <Route path="/register" element={<ProtectedRouteElement auth={false} redirect="/" element={<Register />} />} />
                 <Route path="/profile" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Profile />} />} />
                 <Route path="/reset-password" element={<ProtectedRouteElement auth={false} redirect="/login" element={<ResetPassword />} />} />
                 <Route path="/forgot-password" element={<ProtectedRouteElement auth={false} redirect="/" element={<ForgotPassword />} />} />
+
             </Routes>
-            <ModalSwitch/>
-        </Router>
+            {background &&
+            <Routes>
+                <Route
+                    path='/ingredients/:ingredientId'
+                    element={
+                        <Modal title="Детали ингридиента" closeModal={closePopup}>
+                            <IngredientDetails {...ingredientInfo} />
+                        </Modal>
+                    }
+                />
+            </Routes>
+            }
+        </>
     );
 }
 
