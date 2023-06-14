@@ -31,6 +31,13 @@ function Profile(){
             dispatch(updateUserInfo(data));
         }
     };
+    const reset = () => {
+        setValue({
+            password: '',
+            name: user.name,
+            email: user.email
+        });
+    }
     return (
         <div className={profile.page}>
             <div className={profile.container}>
@@ -93,9 +100,17 @@ function Profile(){
                                 icon="EditIcon"
                             />
 
-                            <Button onClick={save} htmlType="button" type="primary" size="medium" extraClass="mb-20">
-                                Сохранить
-                            </Button>
+                            {
+                                user.name !== form.name || user.email !== form.email || form.password !== '' ?
+                                <>
+                                    <Button onClick={save} htmlType="button" type="primary" size="medium" extraClass="mb-20 mr-2">
+                                        Сохранить
+                                    </Button>
+                                    <Button onClick={reset} htmlType="button" type="primary" size="medium" extraClass="mb-20">
+                                        Отменить
+                                    </Button>
+                                </> : null
+                            }
                         </form>
                     </div>
                 </div>

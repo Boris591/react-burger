@@ -3,13 +3,9 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
-import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
+import {useSelector} from "react-redux";
 
 function BurgerIngredients() {
-    const dispatch = useDispatch();
     const categories = useMemo(() => [
         {name: "Булки", code: "bun"},
         {name: "Соусы", code: "sauce"},
@@ -20,7 +16,6 @@ function BurgerIngredients() {
     const catLength = categories.length;
     const [catRefs, setCatRefs] = useState([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const ingredientInfo = useSelector(store => store.ingredients.ingredientInfo);
     const ingredients = useSelector(store => store.ingredients.ingredients);
 
     useEffect(() => {
@@ -46,30 +41,12 @@ function BurgerIngredients() {
 
     }, [currentPosCategory, catRefs, categories]);
 
-    useEffect(() => {
-
-    }, []);
-
     const handleTab = (pos) => {
         setCurrentPosCategory(pos);
     };
 
     const clickTab = (index) => {
         handleTab(catRefs[index].current.offsetTop);
-    }
-
-    const openPopup = (id) => {
-        dispatch({
-            type: UPDATE_INGREDIENT_INFO,
-            info: ingredients.find(e => e._id === id)
-        });
-    }
-
-    const closePopup = () => {
-        dispatch({
-            type: UPDATE_INGREDIENT_INFO,
-            info: null
-        });
     }
 
     return (
@@ -96,7 +73,6 @@ function BurgerIngredients() {
                                 {
                                     ingredients.filter(e => e.type === category.code).map((ingredient, i) =>
                                         <IngredientCard
-                                            showInfo={openPopup}
                                             id={ingredient._id}
                                             key={i}
                                             img={ingredient.image}
