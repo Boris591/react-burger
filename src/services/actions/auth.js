@@ -236,8 +236,8 @@ export const logoutRequest = () => {
                 token: getCookie('refreshToken')
             })
         }).then(data => {
-            setCookie('refreshToken', null, -1);
-            setCookie('accessToken', null, -1);
+            setCookie('refreshToken', null, {expires: -1});
+            setCookie('accessToken', null, {expires: -1});
             dispatch(
                 {
                     type: LOGOUT_REQUEST_SUCCESS

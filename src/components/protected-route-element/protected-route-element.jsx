@@ -3,6 +3,8 @@ import {getTokenRequest} from "../../services/actions/auth";
 import {Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../../utils/help-methods";
+import PropTypes from "prop-types";
+import IngredientCard from "../ingredient-card/ingredient-card";
 
 export function ProtectedRouteElement({ element, auth, redirect }) {
     const user = useSelector(store => store.auth.user);
@@ -32,3 +34,9 @@ export function ProtectedRouteElement({ element, auth, redirect }) {
         }
     }
 }
+
+IngredientCard.propTypes = {
+    auth: PropTypes.bool,
+    redirect: PropTypes.string,
+    element: PropTypes.elementType
+};
