@@ -7,3 +7,4 @@ export const USER_POINT = "/auth/user";
 export const LOGIN_POINT = "/auth/login";
 export const FORGOT_PASS_POINT = "/password-reset";
 export const RESET_PASS_POINT = "/password-reset/reset";
+export const LOGOUT_POINT = "/auth/logout";

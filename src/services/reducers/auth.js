@@ -1,16 +1,27 @@
 import {
-    FORGOT_PASS_REQUEST, FORGOT_PASS_REQUEST_FAILED, FORGOT_PASS_REQUEST_SUCCESS,
+    FORGOT_PASS_REQUEST,
+    FORGOT_PASS_REQUEST_FAILED,
+    FORGOT_PASS_REQUEST_SUCCESS,
     LOGIN_REQUEST,
     LOGIN_REQUEST_FAILED,
-    LOGIN_REQUEST_SUCCESS, PASS_RESET_REQUEST, PASS_RESET_REQUEST_FAILED, PASS_RESET_REQUEST_SUCCESS,
+    LOGIN_REQUEST_SUCCESS,
+    LOGOUT_REQUEST, LOGOUT_REQUEST_FAILED,
+    LOGOUT_REQUEST_SUCCESS,
+    PASS_RESET_REQUEST,
+    PASS_RESET_REQUEST_FAILED,
+    PASS_RESET_REQUEST_SUCCESS,
     REG_REQUEST,
     REG_REQUEST_FAILED,
     REG_REQUEST_SUCCESS,
-    TOKEN_REFRESH_REQUEST, TOKEN_REFRESH_REQUEST_FAILED,
+    TOKEN_REFRESH_REQUEST,
+    TOKEN_REFRESH_REQUEST_FAILED,
     TOKEN_REFRESH_REQUEST_SUCCESS,
     TOKEN_REQUEST,
     TOKEN_REQUEST_FAILED,
-    TOKEN_REQUEST_SUCCESS, UPDATE_USER_INFO_REQUEST, UPDATE_USER_INFO_REQUEST_FAILED, UPDATE_USER_INFO_REQUEST_SUCCESS
+    TOKEN_REQUEST_SUCCESS,
+    UPDATE_USER_INFO_REQUEST,
+    UPDATE_USER_INFO_REQUEST_FAILED,
+    UPDATE_USER_INFO_REQUEST_SUCCESS
 } from "../actions/auth";
 
 const initialState = {
@@ -32,6 +43,8 @@ const initialState = {
     passResetFailed: false,
     updateUserInfoRequest: false,
     updateUserInfoFailed: false,
+    logoutRequest: false,
+    logoutFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -183,6 +196,27 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 updateUserInfoRequest: false,
                 updateUserInfoFailed: true,
+            };
+        }
+        case LOGOUT_REQUEST: {
+            return {
+                ...state,
+                logoutRequest: true,
+            };
+        }
+        case LOGOUT_REQUEST_SUCCESS: {
+            return {
+                ...state,
+                user: null,
+                logoutRequest: false,
+                logoutFailed: false,
+            };
+        }
+        case LOGOUT_REQUEST_FAILED: {
+            return {
+                ...state,
+                logoutRequest: false,
+                logoutFailed: true,
             };
         }
         default: {

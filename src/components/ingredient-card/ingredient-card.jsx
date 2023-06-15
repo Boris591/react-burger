@@ -23,7 +23,7 @@ function IngredientCard(props){
             }}
             state={{background: location}}
         >
-            <div ref={dragRef} style={{ opacity }} className={card.card} onClick={() => props.showInfo(props.id)}>
+            <div ref={dragRef} style={{ opacity }} className={card.card}>
                 {props.count > 0 &&
                     <Counter count={props.count} size="default" />
                 }

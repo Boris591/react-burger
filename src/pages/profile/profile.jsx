@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profile from "./profile.module.css"
-import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserInfo} from "../../services/actions/auth";
+import ProfileMenu from "../../components/profile-menu/profile-menu";
 
 function Profile(){
     const user = useSelector(store => store.auth.user);
@@ -42,27 +42,7 @@ function Profile(){
         <div className={profile.page}>
             <div className={profile.container}>
                 <div className={profile.col}>
-                    <ul className={profile.menu}>
-                        <li>
-                            <NavLink to={'/profile'}>
-                                <span className="text text_type_main-medium">
-                                    Профиль
-                                </span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/profile/orders'}>
-                                <span className="text text_type_main-medium">
-                                    История заказов
-                                </span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <span className="text text_type_main-medium">
-                                Выход
-                            </span>
-                        </li>
-                    </ul>
+                    <ProfileMenu/>
                     <div className="text text_type_main-default text_color_inactive mt-20">
                         В этом разделе вы можете <br/>
                         изменить свои персональные данные

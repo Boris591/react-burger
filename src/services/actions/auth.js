@@ -1,8 +1,8 @@
-import {getCookie, request, saveTokens} from "../../utils/help-methods";
+import {getCookie, request, saveTokens, setCookie} from "../../utils/help-methods";
 import {
     BASE_URL,
     FORGOT_PASS_POINT,
-    LOGIN_POINT,
+    LOGIN_POINT, LOGOUT_POINT,
     REG_POINT,
     RESET_PASS_POINT,
     TOKEN_POINT,
@@ -30,6 +30,9 @@ export const PASS_RESET_REQUEST_FAILED = 'FORGOT_PASS_RESET_REQUEST_FAILED';
 export const UPDATE_USER_INFO_REQUEST = 'UPDATE_USER_INFO_REQUEST';
 export const UPDATE_USER_INFO_REQUEST_SUCCESS = 'UPDATE_USER_INFO_REQUEST_SUCCESS';
 export const UPDATE_USER_INFO_REQUEST_FAILED = 'UPDATE_USER_INFO_REQUEST_FAILED';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_REQUEST_SUCCESS = 'LOGOUT_REQUEST_SUCCESS';
+export const LOGOUT_REQUEST_FAILED = 'LOGOUT_REQUEST_FAILED';
 
 export const getNewReg = (params) => {
     return function(dispatch) {
@@ -215,5 +218,31 @@ export const refreshTokenRequest = (info=false) => {
             }
         })
             .catch(() => dispatch({type: TOKEN_REFRESH_REQUEST_FAILED}));
+    }
+}
+
+export const logoutRequest = () => {
+    return function(dispatch) {
+        dispatch({
+            type: LOGOUT_REQUEST
+        });
+
+        request(BASE_URL + LOGOUT_POINT, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                token: getCookie('refreshToken')
+            })
+        }).then(data => {
+            setCookie('refreshToken', null, -1);
+            setCookie('accessToken', null, -1);
+            dispatch(
+                {
+                    type: LOGOUT_REQUEST_SUCCESS
+                });
+        })
+            .catch(() => dispatch({type: LOGOUT_REQUEST_FAILED}));
     }
 }
