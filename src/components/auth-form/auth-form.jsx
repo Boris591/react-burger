@@ -5,7 +5,7 @@ function AuthForm(props){
             <h1 className="text text_type_main-medium mb-6">
                 {props.title}
             </h1>
-            <form className={form.form}>
+            <form onSubmit={props.submit} className={form.form}>
                 {props.children}
             </form>
         </div>

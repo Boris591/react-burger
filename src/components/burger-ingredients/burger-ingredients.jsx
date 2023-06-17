@@ -74,7 +74,7 @@ function BurgerIngredients() {
                                     ingredients.filter(e => e.type === category.code).map((ingredient, i) =>
                                         <IngredientCard
                                             id={ingredient._id}
-                                            key={i}
+                                            key={ingredient._id}
                                             img={ingredient.image}
                                             price={ingredient.price}
                                             name={ingredient.name}

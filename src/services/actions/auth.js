@@ -1,4 +1,4 @@
-import {getCookie, request, saveTokens, setCookie} from "../../utils/help-methods";
+import {checkResponse, getCookie, request, saveTokens, setCookie} from "../../utils/help-methods";
 import {
     BASE_URL,
     FORGOT_PASS_POINT,
@@ -15,9 +15,9 @@ export const REG_REQUEST_FAILED = 'REG_REQUEST_FAILED';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_REQUEST_SUCCESS = 'LOGIN_REQUEST_SUCCESS';
 export const LOGIN_REQUEST_FAILED = 'LOGIN_REQUEST_FAILED';
-export const TOKEN_REQUEST = 'TOKEN_REQUEST';
-export const TOKEN_REQUEST_SUCCESS = 'TOKEN_REQUEST_SUCCESS';
-export const TOKEN_REQUEST_FAILED = 'TOKEN_REQUEST_FAILED';
+export const USER_REQUEST = 'USER_REQUEST';
+export const USER_REQUEST_SUCCESS = 'USER_REQUEST_SUCCESS';
+export const USER_REQUEST_FAILED = 'USER_REQUEST_FAILED';
 export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
 export const TOKEN_REFRESH_REQUEST_SUCCESS = 'TOKEN_REFRESH_REQUEST_SUCCESS';
 export const TOKEN_REFRESH_REQUEST_FAILED = 'TOKEN_REFRESH_REQUEST_FAILED';
@@ -132,7 +132,7 @@ export const updateUserInfo = (params) => {
             type: UPDATE_USER_INFO_REQUEST
         });
 
-        request(BASE_URL + USER_POINT, {
+        fetchWithRefresh(BASE_URL + USER_POINT, {
             method: 'PATCH',
             mode: 'cors',
             headers: {
@@ -148,24 +148,20 @@ export const updateUserInfo = (params) => {
                 })
         })
             .catch((err) => {
-                if (err.status === 403) {
-                    dispatch(refreshTokenRequest(params));
-                }else {
-                    dispatch({
-                        type: UPDATE_USER_INFO_REQUEST_FAILED
-                    });
-                }
+                dispatch({
+                    type: UPDATE_USER_INFO_REQUEST_FAILED
+                });
             });
     }
 }
 
-export const getTokenRequest = () => {
+export const getUserRequest = () => {
     return function(dispatch) {
         dispatch({
-            type: TOKEN_REQUEST
+            type: USER_REQUEST
         });
 
-        request(BASE_URL + USER_POINT, {
+        fetchWithRefresh(BASE_URL + USER_POINT, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -175,51 +171,46 @@ export const getTokenRequest = () => {
         }).then(data => {
             dispatch(
                 {
-                    type: TOKEN_REQUEST_SUCCESS,
+                    type: USER_REQUEST_SUCCESS,
                     user: data.user
                 })
         })
             .catch((err) => {
-                if (err.status === 403) {
-                    dispatch(refreshTokenRequest());
-                }else {
-                    dispatch({
-                        type: TOKEN_REQUEST_FAILED
-                    });
-                }
+                dispatch({
+                    type: USER_REQUEST_FAILED
+                });
             });
     }
 }
 
-export const refreshTokenRequest = (info=false) => {
-    return function(dispatch) {
-        dispatch({
-            type: TOKEN_REFRESH_REQUEST
-        });
-
-        request(BASE_URL + TOKEN_POINT, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                token: getCookie('refreshToken')
-            })
-        }).then(data => {
-            saveTokens(data.refreshToken, data.accessToken);
-            dispatch(
-                {
-                    type: TOKEN_REFRESH_REQUEST_SUCCESS
-                });
-            if(!info){
-                dispatch(getTokenRequest());
-            }else{
-                dispatch(updateUserInfo(info));
-            }
+export const refreshToken = () => {
+    return request(BASE_URL + TOKEN_POINT, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            token: getCookie('refreshToken')
         })
-            .catch(() => dispatch({type: TOKEN_REFRESH_REQUEST_FAILED}));
-    }
+    });
 }
+
+export const fetchWithRefresh = async (url, options) => {
+    try {
+        const res = await fetch(url, options);
+        return await checkResponse(res);
+    } catch (err) {
+        if (err.status === 403) {
+            const refreshData = await refreshToken();
+            saveTokens(refreshData.refreshToken, refreshData.accessToken);
+            options.headers.authorization = refreshData.accessToken;
+            const res = await fetch(url, options);
+            return await checkResponse(res);
+        } else {
+            return Promise.reject(err);
+        }
+    }
+};
 
 export const logoutRequest = () => {
     return function(dispatch) {

@@ -12,7 +12,7 @@ function ProfileMenu() {
     return (
         <ul className={profile.menu}>
             <li>
-                <NavLink to={'/profile'}>
+                <NavLink to={'/profile'} end>
                     <span className="text text_type_main-medium">
                         Профиль
                     </span>

@@ -15,7 +15,8 @@ function Login(){
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const login = () => {
+    const login = (event) => {
+        event.preventDefault();
         if(form.email && form.password){
             dispatch(getLogin(form));
         }
@@ -28,7 +29,7 @@ function Login(){
     }, [user, navigate]);
 
     return (
-        <AuthForm title={"Вход"}>
+        <AuthForm submit={login} title={"Вход"}>
             <EmailInput
                 onChange={onChange}
                 value={form.email}
@@ -43,7 +44,7 @@ function Login(){
                 name={'password'}
                 extraClass="mb-6"
             />
-            <Button onClick={login} htmlType="button" type="primary" size="medium" extraClass="mb-20">
+            <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
                 Войти
             </Button>
             <InfoLine label="Вы — новый пользователь?" txt="Зарегистрироваться" link="/register"/>

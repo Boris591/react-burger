@@ -17,7 +17,6 @@ function IngredientCard(props){
 
     return (
         <Link
-            key={ingredientId}
             to={{
                 pathname: `/ingredients/${ingredientId}`,
             }}

@@ -86,8 +86,12 @@ function BurgerConstructor(){
             return;
         }
         const ids = {
-            ingredients: [...activeElements, ...blockedElements].map(item => item.id)
+            ingredients: activeElements.map(item => item.id)
         };
+        if(blockedElements.length > 0){
+            ids.ingredients.unshift(blockedElements[0].id);
+            ids.ingredients.push(blockedElements[1].id);
+        }
         dispatch(getOrder(ids));
     }
 

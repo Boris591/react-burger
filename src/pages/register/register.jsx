@@ -16,7 +16,8 @@ function Register(){
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const setReg = () => {
+    const setReg = (event) => {
+        event.preventDefault();
         if(form.name && form.email && form.password){
             dispatch(getNewReg(form));
         }
@@ -28,11 +29,11 @@ function Register(){
         if(user){
             navigate('/');
         }
-    }, [user]);
+    }, [user, navigate]);
 
 
     return (
-        <AuthForm title={"Регистрация"}>
+        <AuthForm submit={setReg} title={"Регистрация"}>
             <Input
                 type={'text'}
                 placeholder={'Имя'}
@@ -59,7 +60,7 @@ function Register(){
                 name={'password'}
                 extraClass="mb-6"
             />
-            <Button onClick={setReg} htmlType="button" type="primary" size="medium" extraClass="mb-20">
+            <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
                 Зарегистрироваться
             </Button>
             <InfoLine label="Уже зарегистрированы?" txt="Войти" link="/login"/>

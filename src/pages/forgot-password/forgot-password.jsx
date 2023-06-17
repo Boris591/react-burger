@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import AuthForm from "../../components/auth-form/auth-form";
-import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import InfoLine from "../../components/info-line/info-line";
 import {getForgotPass} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,7 +16,8 @@ function ForgotPassword(){
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const forgotPass = () => {
+    const forgotPass = (event) => {
+        event.preventDefault();
         if(form.email){
             dispatch(getForgotPass(form));
         }
@@ -29,7 +30,7 @@ function ForgotPassword(){
     });
 
     return (
-        <AuthForm title={"Восстановление пароля"}>
+        <AuthForm submit={forgotPass} title={"Восстановление пароля"}>
             <EmailInput
                 onChange={onChange}
                 value={form.email}
@@ -38,7 +39,7 @@ function ForgotPassword(){
                 extraClass="mb-6"
                 placeholder="Укажите e-mail"
             />
-            <Button onClick={forgotPass} htmlType="button" type="primary" size="medium" extraClass="mb-20">
+            <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
                 Восстановить
             </Button>
             <InfoLine label="Вспомнили пароль?" txt="Войти" link="/login"/>

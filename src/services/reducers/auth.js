@@ -16,9 +16,9 @@ import {
     TOKEN_REFRESH_REQUEST,
     TOKEN_REFRESH_REQUEST_FAILED,
     TOKEN_REFRESH_REQUEST_SUCCESS,
-    TOKEN_REQUEST,
-    TOKEN_REQUEST_FAILED,
-    TOKEN_REQUEST_SUCCESS,
+    USER_REQUEST,
+    USER_REQUEST_FAILED,
+    USER_REQUEST_SUCCESS,
     UPDATE_USER_INFO_REQUEST,
     UPDATE_USER_INFO_REQUEST_FAILED,
     UPDATE_USER_INFO_REQUEST_SUCCESS
@@ -30,9 +30,9 @@ const initialState = {
     regFailed: false,
     loginRequest: false,
     loginFailed: false,
-    tokenRequest: false,
+    userRequest: false,
     tokenLoad: false,
-    tokenFailed: false,
+    userRequestFailed: false,
     tokenRefreshRequest: false,
     tokenRefreshFailed: false,
     forgotPassRequest: false,
@@ -91,28 +91,28 @@ export const authReducer = (state = initialState, action) => {
                 loginRequest: false,
             };
         }
-        case TOKEN_REQUEST: {
+        case USER_REQUEST: {
             return {
                 ...state,
-                tokenRequest: true,
+                userRequest: true,
                 tokenLoad: false
             };
         }
-        case TOKEN_REQUEST_SUCCESS: {
+        case USER_REQUEST_SUCCESS: {
             return {
                 ...state,
-                tokenRequest: false,
-                tokenFailed: false,
+                userRequest: false,
+                userRequestFailed: false,
                 tokenLoad: true,
                 user: action.user
             };
         }
-        case TOKEN_REQUEST_FAILED: {
+        case USER_REQUEST_FAILED: {
             return {
                 ...state,
-                tokenFailed: true,
+                userRequestFailed: true,
                 tokenLoad: true,
-                tokenRequest: false,
+                userRequest: false,
             };
         }
         case TOKEN_REFRESH_REQUEST: {

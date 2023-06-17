@@ -17,9 +17,11 @@ function Profile(){
         if(user){
             setValue({...form, email: user.email, name: user.name});
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
-    const save = () => {
+    const save = (event) => {
+        event.preventDefault();
         let data = {};
         for (let key in form) {
             if(form[key] !== user[key]){
@@ -50,7 +52,7 @@ function Profile(){
                 </div>
                 <div className={profile.col}>
                     <div className={profile.content}>
-                        <form>
+                        <form onSubmit={save}>
                             <Input
                                 type={'text'}
                                 placeholder={'Имя'}
@@ -83,7 +85,7 @@ function Profile(){
                             {
                                 user.name !== form.name || user.email !== form.email || form.password !== '' ?
                                 <>
-                                    <Button onClick={save} htmlType="button" type="primary" size="medium" extraClass="mb-20 mr-2">
+                                    <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20 mr-2">
                                         Сохранить
                                     </Button>
                                     <Button onClick={reset} htmlType="button" type="primary" size="medium" extraClass="mb-20">

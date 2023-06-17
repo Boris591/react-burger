@@ -1,7 +1,6 @@
 import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, RESET_ORDER_NUMBER} from "../actions/order";
 
 const initialState = {
-    ingredients: [],
     number: '',
     orderRequest: false,
     orderFailed: false,
