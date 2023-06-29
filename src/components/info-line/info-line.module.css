@@ -1,0 +1,9 @@
+.block{
+    display: flex;
+    justify-content: center;
+}
+
+.block a{
+    text-decoration: none;
+    color: #4C4CFF;
+}

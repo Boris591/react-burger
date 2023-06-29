@@ -22,6 +22,8 @@
 
 .value{
     margin-right: 10px;
+    color: white;
+    text-decoration: none;
 }
 
 .name{
@@ -31,4 +33,6 @@
 .name h4{
     overflow-wrap: break-word;
     margin: 0;
+    color: white;
+    text-decoration: none;
 }

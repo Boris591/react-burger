@@ -31,6 +31,18 @@
     text-decoration: none;
 }
 
-.link_active{
+.link svg{
+    fill: #8585AD;
+}
+
+.link span{
+    color: #8585AD;
+}
+
+.link:global.active span{
     color: #F2F2F3;
+}
+
+.link:global.active svg{
+    fill: #F2F2F3;
 }

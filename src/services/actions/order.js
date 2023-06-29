@@ -1,5 +1,6 @@
-import {request} from "../../utils/help-methods";
+import {getCookie} from "../../utils/help-methods";
 import {BASE_URL, ORDER_POINT} from "../../utils/constants";
+import {fetchWithRefresh} from "./auth";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -12,10 +13,11 @@ export const getOrder = (ids) => {
             type: GET_ORDER_REQUEST
         });
 
-        request(BASE_URL + ORDER_POINT, {
+        fetchWithRefresh(BASE_URL + ORDER_POINT, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                authorization: getCookie('accessToken')
             },
             body: JSON.stringify(ids),
         })
