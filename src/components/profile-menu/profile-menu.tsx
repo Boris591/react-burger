@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {logoutRequest} from "../../services/actions/auth";
 
 function ProfileMenu() {
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
     const logout = () => {
         dispatch(logoutRequest());
     };
