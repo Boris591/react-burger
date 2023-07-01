@@ -2,11 +2,23 @@ import ConstructorCard from "../constructor-card/constructor-card";
 import {useDispatch} from "react-redux";
 import {useCallback} from "react";
 import {UPDATE_ITEMS} from "../../services/actions/construct";
-import PropTypes from "prop-types";
 
-function ConstructorIngredientsList(props){
-    const dispatch = useDispatch();
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
+interface Ingredient {
+    id: string;
+    dragId: string;
+    type: string;
+    image_mobile: string;
+    price: number;
+    name: string;
+}
+
+interface ConstructorIngredientsListProps {
+    ingredients: Ingredient[];
+}
+
+function ConstructorIngredientsList(props: ConstructorIngredientsListProps) {
+    const dispatch: any = useDispatch();
+    const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
         const dragCard = props.ingredients[dragIndex];
         const newCards = [...props.ingredients]
 
@@ -29,14 +41,4 @@ function ConstructorIngredientsList(props){
     );
 }
 
-ConstructorIngredientsList.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        dragId: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-    })).isRequired
-};
 export default ConstructorIngredientsList;

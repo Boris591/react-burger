@@ -3,13 +3,16 @@ import {getUserRequest} from "../../services/actions/auth";
 import {Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCookie} from "../../utils/help-methods";
-import PropTypes from "prop-types";
-import IngredientCard from "../ingredient-card/ingredient-card";
 
-export function ProtectedRouteElement({ element, auth, redirect }) {
-    const user = useSelector(store => store.auth.user);
-    const tokenLoad = useSelector(store => store.auth.tokenLoad);
-    const dispatch = useDispatch();
+interface ProtectedRouteElementProps {
+    element: React.ReactElement<any, any>;
+    auth?: boolean;
+    redirect?: string;
+}
+export function ProtectedRouteElement({ element, auth, redirect }: ProtectedRouteElementProps): JSX.Element | null {
+    const user = useSelector((store: any) => store.auth.user);
+    const tokenLoad = useSelector((store: any) => store.auth.tokenLoad);
+    const dispatch: any = useDispatch();
     const [emptyTokens, setEmptyTokens] = useState(false);
 
 
@@ -25,18 +28,15 @@ export function ProtectedRouteElement({ element, auth, redirect }) {
     }, [dispatch]);
 
     if(tokenLoad || emptyTokens){
-        if(!auth){
+        if(!auth && redirect){
             return !user ? element : <Navigate to={redirect} replace/>;
         }
 
-        if(auth){
+        if(auth && redirect){
             return user ? element : <Navigate to={redirect} replace/>;
         }
     }
+
+    return null;
 }
 
-IngredientCard.propTypes = {
-    auth: PropTypes.bool,
-    redirect: PropTypes.string,
-    element: PropTypes.elementType
-};

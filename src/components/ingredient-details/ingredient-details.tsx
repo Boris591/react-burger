@@ -4,11 +4,11 @@ import {useEffect} from "react";
 import {getIngredients, UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
 import {useParams} from "react-router-dom";
 
-function IngredientDetails(){
-    const ingredientInfo = useSelector(store => store.ingredients.ingredientInfo);
-    const ingredients = useSelector(store => store.ingredients.ingredients);
+const IngredientDetails: React.FC = () => {
+    const ingredientInfo = useSelector((store: any) => store.ingredients.ingredientInfo);
+    const ingredients = useSelector((store: any) => store.ingredients.ingredients);
     let { ingredientId } = useParams();
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
     const params = [
         {
             label: "Калории,ккал",
@@ -36,7 +36,7 @@ function IngredientDetails(){
     useEffect(() => {
         dispatch({
             type: UPDATE_INGREDIENT_INFO,
-            info: ingredients.find(e => e._id === ingredientId)
+            info: ingredients.find((e: any) => e._id === ingredientId)
         });
     }, [ingredients, dispatch, ingredientId]);
 

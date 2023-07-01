@@ -1,10 +1,18 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import card from "./ingredient-card.module.css";
-import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 
-function IngredientCard(props){
+interface IngredientCardProps {
+    id: number;
+    count: number;
+    img: string;
+    name: string;
+    price: number;
+    type?: string;
+    image_mobile?: string;
+}
+const IngredientCard: React.FC<IngredientCardProps> = (props) => {
     const location = useLocation();
     const ingredientId = props.id;
     const [{ opacity }, dragRef] = useDrag({
@@ -43,13 +51,5 @@ function IngredientCard(props){
 
     );
 }
-
-IngredientCard.propTypes = {
-    id: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-};
 
 export default IngredientCard;

@@ -1,9 +1,17 @@
 import {useRef} from "react";
-import {useDrag, useDrop} from "react-dnd";
-import PropTypes from "prop-types";
+import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 
-function DragIngredient(props){
-    const ref = useRef(null);
+interface DragIngredientProps {
+    id: string;
+    index?: number;
+    class: string;
+    tp: string;
+    moveCard?: (dragIndex: number, hoverIndex: number) => void;
+    children: React.ReactNode;
+}
+
+const DragIngredient: React.FC<DragIngredientProps> = (props) => {
+    const ref = useRef<HTMLDivElement>(null);
     const index = props.index;
     const [{ handlerId }, drop] = useDrop({
         accept: 'component',
@@ -12,13 +20,13 @@ function DragIngredient(props){
                 handlerId: monitor.getHandlerId()
             }
         },
-        hover(item, monitor) {
+        hover(item: any, monitor: DropTargetMonitor<unknown, unknown>) {
             if (!ref.current) {
                 return;
             }
 
             const dragIndex = item.index;
-            const hoverIndex = index;
+            const hoverIndex = index !== undefined ? index : 0;
 
             if (dragIndex === hoverIndex) {
                 return;
@@ -27,17 +35,19 @@ function DragIngredient(props){
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = clientOffset ? clientOffset.y - hoverBoundingRect.top : null;
 
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            if (dragIndex < hoverIndex && hoverClientY !== null && hoverClientY < hoverMiddleY) {
                 return;
             }
 
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            if (dragIndex > hoverIndex && hoverClientY !== null && hoverClientY > hoverMiddleY) {
                 return;
             }
 
-            props.moveCard(dragIndex, hoverIndex);
+            if (props.moveCard) {
+                props.moveCard(dragIndex, hoverIndex);
+            }
             item.index = hoverIndex;
         }
     })
@@ -54,8 +64,7 @@ function DragIngredient(props){
 
     if (props.tp !== 'bun') drag(drop(ref));
 
-    const preventDefault = (e) => e.preventDefault();
-
+    const preventDefault = (e: React.DragEvent<HTMLDivElement>) => e.preventDefault();
     return (
         <div
             ref={ref}
@@ -68,14 +77,5 @@ function DragIngredient(props){
         </div>
     );
 }
-
-DragIngredient.propTypes = {
-    id: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    class: PropTypes.string.isRequired,
-    tp: PropTypes.string.isRequired,
-    moveCard: PropTypes.func.isRequired,
-    children: PropTypes.array.isRequired
-};
 
 export default DragIngredient;

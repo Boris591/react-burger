@@ -1,13 +1,25 @@
 import {CurrencyIcon, DeleteIcon, DragIcon, LockIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import card from "./constructor-card.module.css";
-import PropTypes from "prop-types";
 import DragIngredient from "../drag-ingredient/drag-ingredient";
 import {DELETE_ELEMENT} from "../../services/actions/construct";
 import {useDispatch} from "react-redux";
 import {DECREASE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
 
-function ConstructorCard(props){
-    const dispatch = useDispatch();
+interface ConstructorCardProps {
+    id: string;
+    img: string;
+    price: number;
+    name: string;
+    blocked: boolean;
+    dragId?: string;
+    moveCard?: (dragIndex: number, hoverIndex: number) => void;
+    tp: string;
+    index?: number;
+    type?: 'first' | 'default' | 'last';
+}
+
+const ConstructorCard: React.FC<ConstructorCardProps> = (props) => {
+    const dispatch: any = useDispatch();
     const deleteElement = () => {
         dispatch({
             type: DELETE_ELEMENT,
@@ -68,18 +80,5 @@ function ConstructorCard(props){
         </>
     );
 }
-
-ConstructorCard.propTypes = {
-    id: PropTypes.string,
-    img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    blocked: PropTypes.bool.isRequired,
-    dragId: PropTypes.string,
-    moveCard: PropTypes.func,
-    tp: PropTypes.string,
-    index: PropTypes.number,
-    type: PropTypes.oneOf(['first', 'default', 'last']),
-};
 
 export default ConstructorCard;

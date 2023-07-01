@@ -1,8 +1,7 @@
 import profile from "../profile.module.css";
-import React from "react";
 import ProfileMenu from "../../../components/profile-menu/profile-menu";
 
-function Orders(){
+const Orders: React.FC = () => {
     return (
         <div className={profile.page}>
             <div className={profile.container}>

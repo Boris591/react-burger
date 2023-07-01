@@ -6,17 +6,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {getNewReg} from "../../services/actions/auth";
 
-function Register(){
-    const user = useSelector(store => store.auth.user);
+const Register: React.FC = () => {
+    const user = useSelector((store: any) => store.auth.user);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
     const [form, setValue] = useState({ name: '', email: '', password: '' });
 
-    const onChange = e => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const setReg = (event) => {
+    const setReg = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.name && form.email && form.password){
             dispatch(getNewReg(form));
