@@ -1,36 +1,40 @@
-import {createRef, useEffect, useMemo, useState} from "react";
+import {createRef, RefObject, useEffect, useMemo, useState} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
 import {useSelector} from "react-redux";
 
-function BurgerIngredients() {
-    const categories = useMemo(() => [
-        {name: "Булки", code: "bun"},
-        {name: "Соусы", code: "sauce"},
-        {name: "Начинки", code: "main"}
-    ], []);
+interface Category {
+    name: string;
+    code: string;
+}
+function BurgerIngredients(): JSX.Element {
+    const categories: Category[] = useMemo(
+        () => [
+            { name: 'Булки', code: 'bun' },
+            { name: 'Соусы', code: 'sauce' },
+            { name: 'Начинки', code: 'main' },
+        ],
+        []
+    );
     let height = 716;
     const [currentPosCategory, setCurrentPosCategory] = useState(0);
     const catLength = categories.length;
-    const [catRefs, setCatRefs] = useState([]);
+    const [catRefs, setCatRefs] = useState<RefObject<HTMLDivElement>[]>([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const ingredients = useSelector(store => store.ingredients.ingredients);
+    const ingredients = useSelector((store: any) => store.ingredients.ingredients);
 
     useEffect(() => {
-        // add or remove refs
         setCatRefs((catRefs) =>
-            Array(catLength)
-                .fill()
-                .map((_, i) => catRefs[i] || createRef()),
+            Array.from({ length: catLength }, (_, i) => catRefs[i] || createRef())
         );
     }, [catLength]);
 
     useEffect(() =>{
         if(catRefs.length > 0){
             catRefs.some((el,index)=>{
-                if(currentPosCategory - el.current.offsetHeight < el.current.offsetTop){
+                if(el.current && (currentPosCategory - el.current.offsetHeight < el.current.offsetTop)){
                     setCurrent(categories[index].code);
                     return true;
                 }
@@ -41,12 +45,13 @@ function BurgerIngredients() {
 
     }, [currentPosCategory, catRefs, categories]);
 
-    const handleTab = (pos) => {
+    const handleTab = (pos: number) => {
         setCurrentPosCategory(pos);
     };
 
-    const clickTab = (index) => {
-        handleTab(catRefs[index].current.offsetTop);
+    const clickTab = (index: number) => {
+        const offsetTop = catRefs[index]?.current?.offsetTop ?? 0;
+        handleTab(offsetTop);
     }
 
     return (
@@ -71,7 +76,7 @@ function BurgerIngredients() {
                             <h3 className={burger['title-section'] + " text_type_main-medium"}>{category.name}</h3>
                             <div className={burger.cards + " pl-4"}>
                                 {
-                                    ingredients.filter(e => e.type === category.code).map((ingredient, i) =>
+                                    ingredients.filter((e: any) => e.type === category.code).map((ingredient: any, i: number) =>
                                         <IngredientCard
                                             id={ingredient._id}
                                             key={ingredient._id}

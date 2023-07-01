@@ -6,16 +6,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {getLogin} from "../../services/actions/auth";
 import {useNavigate} from "react-router-dom";
 
-function Login(){
+const Login: React.FC = () => {
     const [form, setValue] = useState({ email: '', password: '' });
-    const user = useSelector(store => store.auth.user);
-    const dispatch = useDispatch();
+    const user = useSelector((store: any) => store.auth.user);
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
-    const onChange = e => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
-    const login = (event) => {
+    const login = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.email && form.password){
             dispatch(getLogin(form));

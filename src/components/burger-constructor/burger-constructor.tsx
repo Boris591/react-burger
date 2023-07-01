@@ -14,22 +14,24 @@ import ConstructorIngredientsList from "../constructor-ingredients-list/construc
 import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
 import {useNavigate} from "react-router-dom";
 
-function BurgerConstructor(){
-    const dispatch = useDispatch();
+interface BurgerConstructorProps {}
+
+function BurgerConstructor(props: BurgerConstructorProps): JSX.Element {
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
-    const orderNumber = useSelector(store => store.order.number);
-    const user = useSelector(store => store.auth.user);
-    const error = useSelector(store => store.order.orderFailed);
-    const blockedElements = useSelector(store => store.construct.buns);
-    const activeElements = useSelector(store => store.construct.items);
-    const finalPrice = useSelector(store => store.construct.price);
+    const orderNumber = useSelector((store: any) => store.order.number);
+    const user = useSelector((store: any) => store.auth.user);
+    const error = useSelector((store: any) => store.order.orderFailed);
+    const blockedElements = useSelector((store: any) => store.construct.buns);
+    const activeElements = useSelector((store: any) => store.construct.items);
+    const finalPrice = useSelector((store: any) => store.construct.price);
 
     const [{ isHover }, dropTargerRef] = useDrop({
         accept: 'ingredient',
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
-        drop(item) {
+        drop(item: any) {
             if(item.type === 'bun'){
                 if(blockedElements.length > 0){
                     dispatch({
@@ -68,8 +70,8 @@ function BurgerConstructor(){
     });
 
     useEffect(() => {
-        const sumBlocked = blockedElements.reduce((sum, el) => sum + el.price, 0);
-        const sumDef = activeElements.reduce((sum, el) => sum + el.price, 0);
+        const sumBlocked = blockedElements.reduce((sum: number, el: any) => sum + el.price, 0);
+        const sumDef = activeElements.reduce((sum: number, el: any) => sum + el.price, 0);
         dispatch({
             type: UPDATE_PRICE,
             price: sumBlocked + sumDef
@@ -86,7 +88,7 @@ function BurgerConstructor(){
             return;
         }
         const ids = {
-            ingredients: activeElements.map(item => item.id)
+            ingredients: activeElements.map((item: any) => item.id)
         };
         if(blockedElements.length > 0){
             ids.ingredients.unshift(blockedElements[0].id);
@@ -106,7 +108,7 @@ function BurgerConstructor(){
                     </div>
                 }
                 {blockedElements.length > 0 &&
-                    <ConstructorCard tp='bun' type="first" blocked img={blockedElements[0].image_mobile} price={blockedElements[0].price} name={blockedElements[0].name + " вверх"} />
+                    <ConstructorCard id={blockedElements[0].id} tp='bun' type="first" blocked img={blockedElements[0].image_mobile} price={blockedElements[0].price} name={blockedElements[0].name + " вверх"} />
                 }
                 <ScrollBlock height={'464px'}>
                     {
@@ -115,7 +117,7 @@ function BurgerConstructor(){
                     }
                 </ScrollBlock>
                 {blockedElements.length > 1 &&
-                    <ConstructorCard tp='bun' type="last" blocked img={blockedElements[1].image_mobile} price={blockedElements[1].price} name={blockedElements[1].name + " низ"} />
+                    <ConstructorCard id={blockedElements[1].id} tp='bun' type="last" blocked img={blockedElements[1].image_mobile} price={blockedElements[1].price} name={blockedElements[1].name + " низ"} />
                 }
             </div>
             {(blockedElements.length > 0 || activeElements.length > 0) &&

@@ -6,9 +6,9 @@ import AppPanel from "../../components/app-panel/app-panel";
 import {getCookie} from "../../utils/help-methods";
 import {getUserRequest} from "../../services/actions/auth";
 
-function Main() {
-    const dispatch = useDispatch();
-    const error = useSelector(store => store.ingredients.ingredientsFailed);
+const Main: React.FC = () => {
+    const dispatch: any = useDispatch();
+    const error = useSelector((store: any) => store.ingredients.ingredientsFailed);
 
     useEffect(() =>{
         const accessToken = getCookie('accessToken');

@@ -3,7 +3,7 @@ import React from "react";
 
 interface AuthFormProps {
     title: string;
-    submit: (event: React.FormEvent<HTMLFormElement>) => void;
+    submit?: (event: React.FormEvent<HTMLFormElement>) => void;
     children: React.ReactNode;
 }
 
