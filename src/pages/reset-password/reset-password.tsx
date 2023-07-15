@@ -6,14 +6,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {Navigate, useNavigate} from "react-router-dom";
 import {getResetPass} from "../../services/actions/auth";
 
-function ResetPassword(){
-    const [form, setValue] = useState({ token: '', password: '' });
-    const passRes = useSelector(store => store.auth.forgotPassSuccess);
-    const passResetRes = useSelector(store => store.auth.passResetSuccess);
-    const dispatch = useDispatch();
+interface FormState {
+    token: string;
+    password: string;
+}
+
+const ResetPassword = () => {
+    const [form, setValue] = useState<FormState>({ token: '', password: '' });
+    const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
+    const passResetRes = useSelector((store: any) => store.auth.passResetSuccess);
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
 
-    const onChange = e => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 

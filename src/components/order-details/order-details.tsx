@@ -1,7 +1,10 @@
-import PropTypes from "prop-types";
 import done from "../../images/done.svg";
 import order from "./order-details.module.css";
-function OrderDetails(props) {
+
+interface OrderDetailsProps {
+    number: number;
+}
+function OrderDetails(props: OrderDetailsProps): JSX.Element {
     return (
         <div className={order.order + " pt-20 pb-20"}>
             <div className={order.main}>
@@ -18,9 +21,5 @@ function OrderDetails(props) {
         </div>
     );
 }
-
-OrderDetails.propTypes = {
-    number: PropTypes.number.isRequired
-};
 
 export default OrderDetails;

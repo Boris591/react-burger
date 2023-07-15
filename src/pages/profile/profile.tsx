@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profile from "./profile.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserInfo} from "../../services/actions/auth";
 import ProfileMenu from "../../components/profile-menu/profile-menu";
 
+interface FormState {
+    email: string;
+    name: string;
+    password: string;
+    [key: string]: string;
+}
 function Profile(){
-    const user = useSelector(store => store.auth.user);
-    const dispatch = useDispatch();
-    const [form, setValue] = useState({ email: '', name: '', password: '' });
-    const onChange = e => {
+    const user = useSelector((store: any) => store.auth.user);
+    const dispatch: any = useDispatch();
+    const [form, setValue] = useState<FormState>({ email: '', name: '', password: '' });
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
     };
 
@@ -17,12 +23,11 @@ function Profile(){
         if(user){
             setValue({...form, email: user.email, name: user.name});
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
-    const save = (event) => {
+    const save = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        let data = {};
+        let data: Partial<FormState> = {};
         for (let key in form) {
             if(form[key] !== user[key]){
                 data[key] = form[key];
@@ -66,7 +71,9 @@ function Profile(){
                                 icon="EditIcon"
                             />
 
-                            <EmailInput
+                            <Input
+                                placeholder={'Email'}
+                                type={'email'}
                                 onChange={onChange}
                                 value={form.email}
                                 name={'email'}
