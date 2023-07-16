@@ -1,7 +1,8 @@
 import ingredient from "./ingredient-details.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getIngredients, UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
+import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredients";
+import {getIngredients} from "../../services/actions/ingredients";
 import {useParams} from "react-router-dom";
 
 const IngredientDetails: React.FC = () => {

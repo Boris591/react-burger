@@ -5,13 +5,14 @@ import ConstructorCard from "../constructor-card/constructor-card";
 import {useEffect} from "react";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import {getOrder, RESET_ORDER_NUMBER} from "../../services/actions/order";
+import {RESET_ORDER_NUMBER} from "../../services/actions/constants/order";
+import {getOrder} from "../../services/actions/order";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_ELEMENT, UPDATE_BUNS, UPDATE_PRICE} from "../../services/actions/construct";
+import {ADD_ELEMENT, UPDATE_BUNS, UPDATE_PRICE} from "../../services/actions/constants/construct";
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredientsList from "../constructor-ingredients-list/constructor-ingredients-list";
-import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
+import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/constants/ingredients";
 import {useNavigate} from "react-router-dom";
 
 interface BurgerConstructorProps {}

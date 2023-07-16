@@ -1,12 +1,19 @@
-import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, RESET_ORDER_NUMBER} from "../actions/order";
+import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, RESET_ORDER_NUMBER} from "../actions/constants/order";
+import {OrderActions} from "../actions/order";
 
-const initialState = {
+type OrderState = {
+    number: number | '',
+    orderRequest: boolean,
+    orderFailed: boolean,
+}
+
+const initialState: OrderState = {
     number: '',
     orderRequest: false,
     orderFailed: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: OrderActions) => {
     switch (action.type) {
         case GET_ORDER_REQUEST: {
             return {

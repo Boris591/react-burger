@@ -22,9 +22,34 @@ import {
     UPDATE_USER_INFO_REQUEST,
     UPDATE_USER_INFO_REQUEST_FAILED,
     UPDATE_USER_INFO_REQUEST_SUCCESS
-} from "../actions/auth";
+} from "../actions/constants/auth";
+import {User} from "../types/data";
+import {AuthActions} from "../actions/auth";
 
-const initialState = {
+export type AuthState = {
+    user: null | User;
+    regRequest: boolean;
+    regFailed: boolean;
+    loginRequest: boolean;
+    loginFailed: boolean;
+    userRequest: boolean;
+    tokenLoad: boolean;
+    userRequestFailed: boolean;
+    tokenRefreshRequest: boolean;
+    tokenRefreshFailed: boolean;
+    forgotPassRequest: boolean;
+    forgotPassSuccess: boolean;
+    forgotPassFailed: boolean;
+    passResetRequest: boolean;
+    passResetSuccess: boolean;
+    passResetFailed: boolean;
+    updateUserInfoRequest: boolean;
+    updateUserInfoFailed: boolean;
+    logoutRequest: boolean;
+    logoutFailed: boolean;
+}
+
+const initialState: AuthState = {
     user: null,
     regRequest: false,
     regFailed: false,
@@ -47,7 +72,7 @@ const initialState = {
     logoutFailed: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: AuthActions) => {
     switch (action.type) {
         case REG_REQUEST: {
             return {

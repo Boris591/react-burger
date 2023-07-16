@@ -9,7 +9,7 @@ import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import Main from "../../pages/main/main";
 import {ProtectedRouteElement} from "../protected-route-element/protected-route-element";
 import {useDispatch} from "react-redux";
-import {UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
+import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import Orders from "../../pages/profile/orders/orders";

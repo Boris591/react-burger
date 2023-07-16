@@ -1,7 +1,7 @@
 import ConstructorCard from "../constructor-card/constructor-card";
 import {useDispatch} from "react-redux";
 import {useCallback} from "react";
-import {UPDATE_ITEMS} from "../../services/actions/construct";
+import {UPDATE_ITEMS} from "../../services/actions/constants/construct";
 
 interface Ingredient {
     id: string;
