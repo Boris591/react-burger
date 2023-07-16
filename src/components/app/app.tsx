@@ -13,6 +13,7 @@ import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredien
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import Orders from "../../pages/profile/orders/orders";
+import {WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
 
 function App() {
     const location = useLocation();

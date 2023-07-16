@@ -5,12 +5,16 @@ import main from "./main.module.css";
 import AppPanel from "../../components/app-panel/app-panel";
 import {getCookie} from "../../utils/help-methods";
 import {getUserRequest} from "../../services/actions/auth";
+import {WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
 
 const Main: React.FC = () => {
     const dispatch: any = useDispatch();
     const error = useSelector((store: any) => store.ingredients.ingredientsFailed);
 
     useEffect(() =>{
+        dispatch({
+            type: WS_ORDERS_CONNECTION_START
+        });
         const accessToken = getCookie('accessToken');
         const refreshToken = getCookie('refreshToken');
         if(accessToken && refreshToken){

@@ -19,3 +19,13 @@ export interface Ingredient {
     image_large: string;
     [key: string]: any;
 }
+
+export interface Order {
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    status: string;
+    _id: string;
+    [key: string]: any;
+}

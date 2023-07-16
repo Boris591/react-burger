@@ -1,0 +1,13 @@
+.orders{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 36px;
+}
+
+.green{
+    color: #0CC;
+}
+
+.white{
+    color: #F2F2F3;
+}

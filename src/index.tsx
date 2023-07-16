@@ -8,13 +8,15 @@ import { Provider } from 'react-redux';
 import {rootReducer} from "./services/reducers";
 import thunk from 'redux-thunk';
 import App from "./components/app/app";
+import {composeWithDevTools} from "@reduxjs/toolkit/dist/devtoolsExtension";
+import {socketMiddlewareOrders} from "./services/middleware/socket-middleware-orders";
 
 const composeEnhancers =
     typeof window === 'object' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
         ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
         : compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-const store = createStore(rootReducer, enhancer);
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddlewareOrders('wss://norma.nomoreparties.space/orders/all')));
+export const store = createStore(rootReducer, enhancer);
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
