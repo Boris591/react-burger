@@ -6,16 +6,21 @@ import {
     WS_ORDERS_GET_INFO
 } from "../actions/constants/ws-orders";
 import {Order} from "../types/data";
+import orders from "../../pages/profile/orders/orders";
 
 type WSOrdersState = {
     wsConnected: boolean;
     messages: any;
+    total: number;
+    totalToday: number;
     ordersAll: Order[];
     error?: Event;
 }
 
 const initialState: WSOrdersState = {
     wsConnected: false,
+    total: 0,
+    totalToday: 0,
     messages: [],
     ordersAll: []
 };
@@ -45,6 +50,8 @@ export const wsOrdersReducer = (state = initialState, action: WSOrdersActions) =
                 ...state,
                 error: undefined,
                 ordersAll: action.orders,
+                total: action.total,
+                totalToday: action.totalToday,
             };
         default:
             return state;

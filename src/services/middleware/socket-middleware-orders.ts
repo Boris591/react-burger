@@ -1,4 +1,4 @@
-import type { Middleware, MiddlewareAPI } from 'redux';
+import type {AnyAction, Middleware, MiddlewareAPI} from 'redux';
 
 import type { ApplicationActions, AppDispatch, RootState } from '../types';
 import {
@@ -7,22 +7,27 @@ import {
     WS_ORDERS_CONNECTION_START,
     WS_ORDERS_CONNECTION_SUCCESS, WS_ORDERS_GET_INFO, WS_ORDERS_SEND_INFO
 } from "../actions/constants/ws-orders";
+import {wsActionsOrders, WSOrdersActions} from "../actions/wsorders";
+import {getCookie} from "../../utils/help-methods";
+import {wsActionsOrdersType} from "../types/data";
 
-export const socketMiddlewareOrders = (wsUrl: string): Middleware => {
+export const socketMiddlewareOrders = (wsUrl: string, auth: boolean, wsActions: wsActionsOrdersType = wsActionsOrders): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-        return next => (action: ApplicationActions) => {
-            const { dispatch, getState } = store;
-            const { type } = action;
+        return (next: (item: AnyAction) => void) => (action: AnyAction) => {
+            const {dispatch} = store;
+            const { type, payload } = action;
 
 
             if (type === WS_ORDERS_CONNECTION_START) {
-                socket = new WebSocket(wsUrl);
-                console.log(socket);
+                if(auth){
+                    socket = new WebSocket(`${wsUrl}?token=${getCookie('accessToken')}`);
+                }else{
+                    socket = new WebSocket(wsUrl);
+                }
             }
             if (socket) {
-
                 // функция, которая вызывается при открытии сокета
                 socket.onopen = event => {
                     dispatch({ type: WS_ORDERS_CONNECTION_SUCCESS, payload: event });
@@ -36,18 +41,28 @@ export const socketMiddlewareOrders = (wsUrl: string): Middleware => {
                 // функция, которая вызывается при получения события от сервера
                 socket.onmessage = event => {
                     const { data } = event;
-                    console.log(JSON.parse(data).orders);
-                    dispatch({ type: WS_ORDERS_GET_INFO, orders: JSON.parse(data).orders });
+                    dispatch({
+                        type: WS_ORDERS_GET_INFO,
+                        orders: JSON.parse(data).orders,
+                        total: JSON.parse(data).total,
+                        totalToday: JSON.parse(data).totalToday
+                    });
                 };
                 // функция, которая вызывается при закрытии соединения
                 socket.onclose = event => {
                     dispatch({ type: WS_ORDERS_CONNECTION_CLOSED, payload: event });
                 };
 
+                if (type === WS_ORDERS_CONNECTION_CLOSED) {
+                    socket.close();
+                }
+
                 if (type === WS_ORDERS_SEND_INFO) {
-                    //const message = payload;
-                    // функция для отправки сообщения на сервер
-                    //socket.send(JSON.stringify(message));
+                    const token = getCookie('accessToken');
+                    socket.send(JSON.stringify({
+                        ...payload,
+                        //token: token
+                    }));
                 }
             }
 

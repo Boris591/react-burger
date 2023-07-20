@@ -1,3 +1,9 @@
+import {
+    WS_ORDERS_CONNECTION_CLOSED, WS_ORDERS_CONNECTION_ERROR,
+    WS_ORDERS_CONNECTION_START,
+    WS_ORDERS_CONNECTION_SUCCESS, WS_ORDERS_GET_INFO
+} from "../actions/constants/ws-orders";
+
 export interface User {
     name: string;
     email: string;
@@ -29,3 +35,11 @@ export interface Order {
     _id: string;
     [key: string]: any;
 }
+
+export type wsActionsOrdersType = {
+    wsOrdersStart: string,
+    wsOrdersSuccess: string,
+    wsOrdersClose: string,
+    wsOrdersError: string,
+    wsOrdersGetInfo: string
+};

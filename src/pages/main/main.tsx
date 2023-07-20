@@ -12,9 +12,6 @@ const Main: React.FC = () => {
     const error = useSelector((store: any) => store.ingredients.ingredientsFailed);
 
     useEffect(() =>{
-        dispatch({
-            type: WS_ORDERS_CONNECTION_START
-        });
         const accessToken = getCookie('accessToken');
         const refreshToken = getCookie('refreshToken');
         if(accessToken && refreshToken){

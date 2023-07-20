@@ -22,6 +22,8 @@ export interface WSOrdersConnectionErrorAction {
 export interface WSOrdersGetInfoAction {
     readonly type: typeof WS_ORDERS_GET_INFO;
     readonly orders: Order[];
+    readonly total: number;
+    readonly totalToday: number;
 }
 
 export interface WSOrdersSendInfoAction {
@@ -39,3 +41,11 @@ export type WSOrdersActions =
     | WSOrdersGetInfoAction
     | WSOrdersSendInfoAction
     | WSOrdersConnectionClosedAction;
+
+export const wsActionsOrders = {
+    wsOrdersStart: WS_ORDERS_CONNECTION_START,
+    wsOrdersSuccess: WS_ORDERS_CONNECTION_SUCCESS,
+    wsOrdersClose: WS_ORDERS_CONNECTION_CLOSED,
+    wsOrdersError: WS_ORDERS_CONNECTION_ERROR,
+    wsOrdersGetInfo: WS_ORDERS_GET_INFO
+};
