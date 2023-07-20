@@ -11,18 +11,17 @@ function ListValues(props: ListValuesProps): JSX.Element{
     }
     return (
         <>
-            <span className={info.label + ' mb-6 text text_type_main-medium'}>
+            <div className={info.label + ' mb-6 text text_type_main-medium'}>
                 {props.label}
-            </span>
-            {props.items.map((el, i) => (
-                <>
-                    {i && <p></p>}
-                    <li className={info.itemList + ' mb-2 text text_type_digits-default ' + props.colorItems} key={i}>
-                        {el}
-                    </li>
-                </>
-                )
-            )}
+            </div>
+            <ul className={info.list}>
+                {props.items.map((el, i) => (
+                        <li className={(props.colorItems === 'green' ? info.green : info.white) + ' mb-2 text text_type_digits-default ' + props.colorItems} key={i}>
+                            {el}
+                        </li>
+                    )
+                )}
+            </ul>
         </>
     );
 }

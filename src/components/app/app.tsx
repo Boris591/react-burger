@@ -40,6 +40,7 @@ function App() {
                 </Route>
                 <Route path='/ingredients/:ingredientId' element={<IngredientDetails  />} />
                 <Route path='/feed' element={<Feed/>}/>
+                <Route path='/feed/:id' element={<Feed/>}/>
 
                 <Route path="/login" element={<ProtectedRouteElement auth={false} redirect="/" element={<Login />} />} />
                 <Route path="/register" element={<ProtectedRouteElement auth={false} redirect="/" element={<Register />} />} />
