@@ -8,9 +8,10 @@ import { Provider } from 'react-redux';
 import {rootReducer} from "./services/reducers";
 import thunk from 'redux-thunk';
 import App from "./components/app/app";
-import {composeWithDevTools} from "@reduxjs/toolkit/dist/devtoolsExtension";
 import {socketMiddlewareOrders} from "./services/middleware/socket-middleware-orders";
-import {WS_ORDERS_ALL_POINT} from "./utils/constants";
+import {WS_ORDERS_ALL_POINT, WS_ORDERS_POINT} from "./utils/constants";
+import {wsActionsOrders} from "./services/actions/wsorders";
+import {wsActionsOrdersAuth} from "./services/actions/wsorders-auth";
 
 const composeEnhancers =
     typeof window === 'object' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -19,7 +20,8 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
     applyMiddleware(
         thunk,
-        socketMiddlewareOrders(WS_ORDERS_ALL_POINT, false)
+        socketMiddlewareOrders(WS_ORDERS_ALL_POINT, wsActionsOrders, false),
+        socketMiddlewareOrders(WS_ORDERS_POINT, wsActionsOrdersAuth, true)
     ));
 export const store = createStore(rootReducer, enhancer);
 const root = ReactDOM.createRoot(

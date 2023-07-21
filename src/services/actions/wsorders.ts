@@ -47,5 +47,6 @@ export const wsActionsOrders = {
     wsOrdersSuccess: WS_ORDERS_CONNECTION_SUCCESS,
     wsOrdersClose: WS_ORDERS_CONNECTION_CLOSED,
     wsOrdersError: WS_ORDERS_CONNECTION_ERROR,
-    wsOrdersGetInfo: WS_ORDERS_GET_INFO
+    wsOrdersGetInfo: WS_ORDERS_GET_INFO,
+    wsOrdersSendInfo: WS_ORDERS_SEND_INFO
 };

@@ -41,5 +41,6 @@ export type wsActionsOrdersType = {
     wsOrdersSuccess: string,
     wsOrdersClose: string,
     wsOrdersError: string,
-    wsOrdersGetInfo: string
+    wsOrdersGetInfo: string,
+    wsOrdersSendInfo: string
 };

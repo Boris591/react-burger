@@ -8,7 +8,7 @@
     width: 100%;
     max-width: 1240px;
     display: grid;
-    grid-template-columns: 380px 480px;
+    grid-template-columns: 380px auto;
     grid-column-gap: 60px;
 }
 

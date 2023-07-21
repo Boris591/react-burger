@@ -41,11 +41,10 @@ function App() {
                 <Route path='/ingredients/:ingredientId' element={<IngredientDetails  />} />
                 <Route path='/feed' element={<Feed/>}/>
                 <Route path='/feed/:id' element={<Feed/>}/>
-
+                <Route path="/profile/orders" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Orders />} />} />
                 <Route path="/login" element={<ProtectedRouteElement auth={false} redirect="/" element={<Login />} />} />
                 <Route path="/register" element={<ProtectedRouteElement auth={false} redirect="/" element={<Register />} />} />
                 <Route path="/profile" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Profile />} />} />
-                <Route path="/profile/orders" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Orders />} />} />
                 <Route path="/reset-password" element={<ProtectedRouteElement auth={false} redirect="/login" element={<ResetPassword />} />} />
                 <Route path="/forgot-password" element={<ProtectedRouteElement auth={false} redirect="/" element={<ForgotPassword />} />} />
 
