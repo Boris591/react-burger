@@ -1,8 +1,15 @@
 import {getCookie} from "../../utils/help-methods";
 import {BASE_URL, ORDER_POINT} from "../../utils/constants";
 import {fetchWithRefresh} from "./auth";
-import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, RESET_ORDER_NUMBER} from "./constants/order";
+import {
+    GET_ORDER_FAILED,
+    GET_ORDER_REQUEST,
+    GET_ORDER_SUCCESS,
+    RESET_ORDER_NUMBER,
+    UPDATE_ORDER_INFO
+} from "./constants/order";
 import {AppDispatch} from "../types";
+import {Order} from "../types/data";
 
 export interface GetOrderRequestAction {
     readonly type: typeof GET_ORDER_REQUEST;
@@ -22,10 +29,16 @@ export interface ResetOrderNumberAction {
     readonly number: ''
 }
 
+export interface UpdateOrderInfoAction {
+    readonly type: typeof UPDATE_ORDER_INFO;
+    readonly order: Order | null
+}
+
 export type OrderActions =
     | GetOrderRequestAction
     | GetOrderSuccessAction
     | GetOrderFailedAction
+    | UpdateOrderInfoAction
     | ResetOrderNumberAction;
 
 

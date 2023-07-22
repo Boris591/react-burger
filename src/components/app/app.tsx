@@ -15,6 +15,7 @@ import Modal from "../modal/modal";
 import Orders from "../../pages/profile/orders/orders";
 import {WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
 import Feed from "../../pages/feed/feed";
+import OrderInfo from "../order-info/order-info";
 
 function App() {
     const location = useLocation();
@@ -40,7 +41,7 @@ function App() {
                 </Route>
                 <Route path='/ingredients/:ingredientId' element={<IngredientDetails  />} />
                 <Route path='/feed' element={<Feed/>}/>
-                <Route path='/feed/:id' element={<Feed/>}/>
+                <Route path='/feed/:orderId' element={<OrderInfo auth={false}/>}/>
                 <Route path="/profile/orders" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Orders />} />} />
                 <Route path="/login" element={<ProtectedRouteElement auth={false} redirect="/" element={<Login />} />} />
                 <Route path="/register" element={<ProtectedRouteElement auth={false} redirect="/" element={<Register />} />} />

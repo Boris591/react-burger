@@ -37,7 +37,7 @@ function OrderCard(props: OrderCardProps): JSX.Element{
 
     useEffect(() => {
         SetInfo(ingredients.filter((el: Ingredient) => props.ids.includes(el._id)));
-    }, [ingredients]);
+    }, [ingredients, props.ids]);
 
     useEffect(() => {
         if(info.length > 0){
