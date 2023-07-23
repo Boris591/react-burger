@@ -1,5 +1,6 @@
 import ingredient from "./ingredient-details.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {useEffect} from "react";
 import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredients";
 import {getIngredients} from "../../services/actions/ingredients";
@@ -31,8 +32,7 @@ const IngredientDetails: React.FC = () => {
     ];
     useEffect(() => {
         if(ingredients.length === 0){
-            // @ts-ignore
-            dispatch(getIngredients());
+           dispatch(getIngredients());
         }
     },[dispatch, ingredients]);
 

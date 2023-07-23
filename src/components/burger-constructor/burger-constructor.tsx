@@ -7,7 +7,8 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {RESET_ORDER_NUMBER} from "../../services/actions/constants/order";
 import {getOrder} from "../../services/actions/order";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {useDrop} from "react-dnd";
 import {ADD_ELEMENT, UPDATE_BUNS, UPDATE_PRICE} from "../../services/actions/constants/construct";
 import { v4 as uuidv4 } from 'uuid';
@@ -98,7 +99,6 @@ function BurgerConstructor(props: BurgerConstructorProps): JSX.Element {
             ids.ingredients.unshift(blockedElements[0].id);
             ids.ingredients.push(blockedElements[1].id);
         }
-        // @ts-ignore
         dispatch(getOrder(ids));
     }
 

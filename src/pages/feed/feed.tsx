@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import panel from "../../components/app-panel/app-panel.module.css";
 import {WS_ORDERS_CONNECTION_CLOSED, WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import OrderList from "../../components/order-list/order-list";
 import {getIngredients} from "../../services/actions/ingredients";
 import AllInfoOrders from "../../components/all-info-orders/all-info-orders";
@@ -15,7 +16,6 @@ const Feed: React.FC = () => {
     const [working, setWorking] = useState<number[]>([]);
     const [done, setDone] = useState<number[]>([]);
     useEffect(() => {
-        // @ts-ignore
         dispatch(getIngredients());
         dispatch({
             type: WS_ORDERS_CONNECTION_START

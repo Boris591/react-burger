@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import AuthForm from "../../components/auth-form/auth-form";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import InfoLine from "../../components/info-line/info-line";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {useNavigate} from "react-router-dom";
 import {getNewReg} from "../../services/actions/auth";
 
@@ -19,8 +20,7 @@ const Register: React.FC = () => {
     const setReg = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.name && form.email && form.password){
-            // @ts-ignore
-            dispatch(getNewReg(form));
+           dispatch(getNewReg(form));
         }
     };
 

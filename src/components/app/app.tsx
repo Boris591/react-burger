@@ -8,13 +8,13 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import Main from "../../pages/main/main";
 import {ProtectedRouteElement} from "../protected-route-element/protected-route-element";
-import {useDispatch} from "react-redux";
 import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredients";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import Orders from "../../pages/profile/orders/orders";
 import Feed from "../../pages/feed/feed";
 import OrderInfo from "../order-info/order-info";
+import {useDispatch} from "../../services/types/hooks";
 
 function App() {
     const location = useLocation();

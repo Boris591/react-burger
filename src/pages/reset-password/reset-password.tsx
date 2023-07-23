@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import AuthForm from "../../components/auth-form/auth-form";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import InfoLine from "../../components/info-line/info-line";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {Navigate, useNavigate} from "react-router-dom";
 import {getResetPass} from "../../services/actions/auth";
 
@@ -24,8 +25,7 @@ const ResetPassword = () => {
 
     const resetPass = () => {
         if(form.password && form.token){
-            // @ts-ignore
-            dispatch(getResetPass(form));
+           dispatch(getResetPass(form));
         }
     };
 

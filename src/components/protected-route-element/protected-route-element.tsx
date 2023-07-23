@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
 import {getUserRequest} from "../../services/actions/auth";
 import {Navigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {getCookie} from "../../utils/help-methods";
 import {RootState} from "../../services/types";
 
@@ -22,8 +23,7 @@ export function ProtectedRouteElement({ element, auth, redirect }: ProtectedRout
         const refreshToken = getCookie('refreshToken');
 
         if(accessToken && refreshToken){
-            // @ts-ignore
-            dispatch(getUserRequest())
+           dispatch(getUserRequest())
         }else {
             setEmptyTokens(true);
         }

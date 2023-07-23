@@ -3,7 +3,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
 import {RootState} from "../../services/types";
 
 interface Category {

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profile from "./profile.module.css"
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {updateUserInfo} from "../../services/actions/auth";
 import ProfileMenu from "../../components/profile-menu/profile-menu";
 
@@ -35,8 +36,7 @@ function Profile(){
         }
 
         if(Object.keys(data).length > 0){
-            // @ts-ignore
-            dispatch(updateUserInfo(data));
+           dispatch(updateUserInfo(data));
         }
     };
     const reset = () => {

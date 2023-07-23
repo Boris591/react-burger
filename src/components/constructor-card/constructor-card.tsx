@@ -2,7 +2,7 @@ import {CurrencyIcon, DeleteIcon, DragIcon, LockIcon} from "@ya.praktikum/react-
 import card from "./constructor-card.module.css";
 import DragIngredient from "../drag-ingredient/drag-ingredient";
 import {DELETE_ELEMENT} from "../../services/actions/constants/construct";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/types/hooks";
 import {DECREASE_COUNT_INGREDIENT} from "../../services/actions/constants/ingredients";
 
 interface ConstructorCardProps {

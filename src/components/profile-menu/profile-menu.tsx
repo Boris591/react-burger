@@ -1,13 +1,12 @@
 import profile from "../../pages/profile/profile.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/types/hooks";
 import {logoutRequest} from "../../services/actions/auth";
 
 function ProfileMenu() {
     const dispatch = useDispatch();
     const logout = () => {
-        // @ts-ignore
         dispatch(logoutRequest());
     };
     return (

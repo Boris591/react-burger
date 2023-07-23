@@ -1,4 +1,5 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import React, {useEffect} from "react";
 import {getIngredients} from "../../services/actions/ingredients";
 import main from "./main.module.css";
@@ -15,10 +16,8 @@ const Main: React.FC = () => {
         const accessToken = getCookie('accessToken');
         const refreshToken = getCookie('refreshToken');
         if(accessToken && refreshToken){
-            // @ts-ignore
-            dispatch(getUserRequest())
+           dispatch(getUserRequest())
         }
-        // @ts-ignore
         dispatch(getIngredients());
     }, [dispatch]);
 

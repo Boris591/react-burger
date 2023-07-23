@@ -1,7 +1,7 @@
 import orderCard from './order-card.module.css';
 import bgCircle from '../../images/ingredient-circle.svg';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
 import {Ingredient} from "../../services/types/data";
 import {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";

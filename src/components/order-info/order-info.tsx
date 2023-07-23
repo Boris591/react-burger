@@ -1,6 +1,7 @@
 import order from './order-info.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getIngredients} from "../../services/actions/ingredients";
@@ -41,8 +42,7 @@ function OrderInfo(props: OrderInfoProps){
 
     useEffect(() => {
         if(ingredientsAll.length === 0){
-            // @ts-ignore
-            dispatch(getIngredients());
+           dispatch(getIngredients());
         }
     },[dispatch, ingredientsAll]);
 

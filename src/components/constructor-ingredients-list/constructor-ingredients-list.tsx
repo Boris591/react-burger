@@ -1,5 +1,5 @@
 import ConstructorCard from "../constructor-card/constructor-card";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/types/hooks";
 import {useCallback} from "react";
 import {UPDATE_ITEMS} from "../../services/actions/constants/construct";
 
