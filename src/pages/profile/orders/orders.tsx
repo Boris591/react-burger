@@ -10,10 +10,11 @@ import {
 import {getIngredients} from "../../../services/actions/ingredients";
 
 const Orders: React.FC = () => {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const orders = useSelector((store: any) => store.wsOrdersAuth.ordersAll);
 
     useEffect(() => {
+        // @ts-ignore
         dispatch(getIngredients());
         dispatch({
             type: WS_ORDERS_CONNECTION_START_AUTH

@@ -8,13 +8,14 @@ import AllInfoOrders from "../../components/all-info-orders/all-info-orders";
 import {Order} from "../../services/types/data";
 
 const Feed: React.FC = () => {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const orders = useSelector((store: any) => store.wsOrders.ordersAll);
     const total = useSelector((store: any) => store.wsOrders.total);
     const totalToday = useSelector((store: any) => store.wsOrders.totalToday);
     const [working, setWorking] = useState<number[]>([]);
     const [done, setDone] = useState<number[]>([]);
     useEffect(() => {
+        // @ts-ignore
         dispatch(getIngredients());
         dispatch({
             type: WS_ORDERS_CONNECTION_START

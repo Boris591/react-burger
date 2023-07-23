@@ -17,7 +17,7 @@ interface ConstructorIngredientsListProps {
 }
 
 function ConstructorIngredientsList(props: ConstructorIngredientsListProps) {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
         const dragCard = props.ingredients[dragIndex];
         const newCards = [...props.ingredients]

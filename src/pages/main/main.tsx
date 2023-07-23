@@ -8,15 +8,17 @@ import {getUserRequest} from "../../services/actions/auth";
 import {WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
 
 const Main: React.FC = () => {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const error = useSelector((store: any) => store.ingredients.ingredientsFailed);
 
     useEffect(() =>{
         const accessToken = getCookie('accessToken');
         const refreshToken = getCookie('refreshToken');
         if(accessToken && refreshToken){
+            // @ts-ignore
             dispatch(getUserRequest())
         }
+        // @ts-ignore
         dispatch(getIngredients());
     }, [dispatch]);
 

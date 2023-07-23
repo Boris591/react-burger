@@ -14,18 +14,21 @@ import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredientsList from "../constructor-ingredients-list/constructor-ingredients-list";
 import {INCREASE_COUNT_INGREDIENT, UPDATE_COUNT_INGREDIENT} from "../../services/actions/constants/ingredients";
 import {useNavigate} from "react-router-dom";
+import {RootState} from "../../services/types";
 
 interface BurgerConstructorProps {}
 
 function BurgerConstructor(props: BurgerConstructorProps): JSX.Element {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const orderNumber = useSelector((store: any) => store.order.number);
-    const user = useSelector((store: any) => store.auth.user);
-    const error = useSelector((store: any) => store.order.orderFailed);
-    const blockedElements = useSelector((store: any) => store.construct.buns);
-    const activeElements = useSelector((store: any) => store.construct.items);
-    const finalPrice = useSelector((store: any) => store.construct.price);
+    // @ts-ignore
+    const orderNumber = useSelector((store: RootState) => store.order.number) as number | '';
+    const user = useSelector((store: RootState) => store.auth.user);
+    // @ts-ignore
+    const error = useSelector((store: RootState) => store.order.orderFailed);
+    const blockedElements = useSelector((store: RootState) => store.construct.buns);
+    const activeElements = useSelector((store: RootState) => store.construct.items);
+    const finalPrice = useSelector((store: RootState) => store.construct.price);
 
     const [{ isHover }, dropTargerRef] = useDrop({
         accept: 'ingredient',
@@ -95,6 +98,7 @@ function BurgerConstructor(props: BurgerConstructorProps): JSX.Element {
             ids.ingredients.unshift(blockedElements[0].id);
             ids.ingredients.push(blockedElements[1].id);
         }
+        // @ts-ignore
         dispatch(getOrder(ids));
     }
 

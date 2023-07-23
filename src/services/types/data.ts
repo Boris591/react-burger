@@ -1,9 +1,3 @@
-import {
-    WS_ORDERS_CONNECTION_CLOSED, WS_ORDERS_CONNECTION_ERROR,
-    WS_ORDERS_CONNECTION_START,
-    WS_ORDERS_CONNECTION_SUCCESS, WS_ORDERS_GET_INFO
-} from "../actions/constants/ws-orders";
-
 export interface User {
     name: string;
     email: string;
@@ -26,12 +20,16 @@ export interface Ingredient {
     [key: string]: any;
 }
 
+export interface IngredientOrder extends Ingredient {
+    count: number
+}
+
 export interface Order {
     createdAt: string;
     ingredients: string[];
     name: string;
     number: number;
-    status: string;
+    status: 'created' | 'done' | 'pending';
     _id: string;
     [key: string]: any;
 }

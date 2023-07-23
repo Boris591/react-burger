@@ -13,7 +13,6 @@ import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredien
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import Orders from "../../pages/profile/orders/orders";
-import {WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
 import Feed from "../../pages/feed/feed";
 import OrderInfo from "../order-info/order-info";
 
@@ -27,6 +26,9 @@ function App() {
             type: UPDATE_INGREDIENT_INFO,
             info: null
         });
+        navigate(-1);
+    };
+    const closePopupOrder = () => {
         navigate(-1);
     };
 
@@ -43,6 +45,7 @@ function App() {
                 <Route path='/feed' element={<Feed/>}/>
                 <Route path='/feed/:orderId' element={<OrderInfo auth={false}/>}/>
                 <Route path="/profile/orders" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Orders />} />} />
+                <Route path="/profile/orders/:orderId" element={<ProtectedRouteElement auth={true} redirect="/login" element={<OrderInfo auth={true}/>} />} />
                 <Route path="/login" element={<ProtectedRouteElement auth={false} redirect="/" element={<Login />} />} />
                 <Route path="/register" element={<ProtectedRouteElement auth={false} redirect="/" element={<Register />} />} />
                 <Route path="/profile" element={<ProtectedRouteElement auth={true} redirect="/login" element={<Profile />} />} />
@@ -57,6 +60,22 @@ function App() {
                     element={
                         <Modal title="Детали ингридиента" closeModal={closePopup}>
                             <IngredientDetails />
+                        </Modal>
+                    }
+                />
+                <Route
+                    path='/feed/:orderId'
+                    element={
+                        <Modal title="" closeModal={closePopupOrder}>
+                            <OrderInfo auth={false}/>
+                        </Modal>
+                    }
+                />
+                <Route
+                    path='/profile/orders/:orderId'
+                    element={
+                        <Modal title="" closeModal={closePopupOrder}>
+                            <OrderInfo auth={true}/>
                         </Modal>
                     }
                 />

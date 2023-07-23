@@ -15,7 +15,7 @@ const ResetPassword = () => {
     const [form, setValue] = useState<FormState>({ token: '', password: '' });
     const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
     const passResetRes = useSelector((store: any) => store.auth.passResetSuccess);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +24,7 @@ const ResetPassword = () => {
 
     const resetPass = () => {
         if(form.password && form.token){
+            // @ts-ignore
             dispatch(getResetPass(form));
         }
     };

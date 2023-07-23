@@ -5,8 +5,8 @@ import {ConstructActions} from "../actions/construct";
 import {IngredientsActions} from "../actions/ingredients";
 import {OrderActions} from "../actions/order";
 import {WSOrdersActions} from "../actions/wsorders";
-import {store} from "../../index";
 import {WSOrdersActionsAuth} from "../actions/wsorders-auth";
+import {store} from "../../store";
 
 export type RootState = ReturnType<typeof store.getState>;
 

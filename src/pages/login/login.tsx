@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 const Login: React.FC = () => {
     const [form, setValue] = useState({ email: '', password: '' });
     const user = useSelector((store: any) => store.auth.user);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
@@ -18,6 +18,7 @@ const Login: React.FC = () => {
     const login = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.email && form.password){
+            // @ts-ignore
             dispatch(getLogin(form));
         }
     };

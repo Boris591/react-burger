@@ -9,7 +9,7 @@ import {getNewReg} from "../../services/actions/auth";
 const Register: React.FC = () => {
     const user = useSelector((store: any) => store.auth.user);
     const navigate = useNavigate();
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const [form, setValue] = useState({ name: '', email: '', password: '' });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +19,7 @@ const Register: React.FC = () => {
     const setReg = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.name && form.email && form.password){
+            // @ts-ignore
             dispatch(getNewReg(form));
         }
     };

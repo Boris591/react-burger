@@ -10,3 +10,8 @@ export const RESET_PASS_POINT = "/password-reset/reset";
 export const LOGOUT_POINT = "/auth/logout";
 export const WS_ORDERS_ALL_POINT = "wss://norma.nomoreparties.space/orders/all";
 export const WS_ORDERS_POINT = "wss://norma.nomoreparties.space/orders";
+export const ordersStatusInfo = {
+    created: 'Создан',
+    pending: 'В работе',
+    done: 'Выполнен'
+};

@@ -19,7 +19,7 @@ interface ConstructorCardProps {
 }
 
 const ConstructorCard: React.FC<ConstructorCardProps> = (props) => {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const deleteElement = () => {
         dispatch({
             type: DELETE_ELEMENT,

@@ -13,7 +13,7 @@ interface FormState {
 }
 function Profile(){
     const user = useSelector((store: any) => store.auth.user);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const [form, setValue] = useState<FormState>({ email: '', name: '', password: '' });
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
@@ -35,6 +35,7 @@ function Profile(){
         }
 
         if(Object.keys(data).length > 0){
+            // @ts-ignore
             dispatch(updateUserInfo(data));
         }
     };

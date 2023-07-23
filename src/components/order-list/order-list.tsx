@@ -1,5 +1,4 @@
 import ScrollBlock from "../scroll-block/scroll-block";
-import {useSelector} from "react-redux";
 import OrderCard from "../order-card/order-card";
 import {Order} from "../../services/types/data";
 

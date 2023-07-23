@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 const ForgotPassword: React.FC = () => {
     const [form, setValue] = useState({ email: '' });
     const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +19,7 @@ const ForgotPassword: React.FC = () => {
     const forgotPass = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.email){
+            // @ts-ignore
             dispatch(getForgotPass(form));
         }
     };
