@@ -6,16 +6,25 @@ import {
     DECREASE_COUNT_INGREDIENT,
     UPDATE_COUNT_INGREDIENT,
     UPDATE_INGREDIENT_INFO
-} from "../actions/ingredients";
+} from "../actions/constants/ingredients";
+import {Ingredient} from "../types/data";
+import {IngredientsActions} from "../actions/ingredients";
 
-const initialState = {
+type IngredientsState = {
+    ingredients: Ingredient[],
+    ingredientsRequest: boolean,
+    ingredientsFailed: boolean,
+    ingredientInfo: Ingredient | null
+};
+
+const initialState: IngredientsState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
     ingredientInfo: null
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: IngredientsActions) => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {

@@ -11,10 +11,10 @@ function AppHeader(){
                             <BurgerIcon type="primary" />
                             <span className="text_type_main-default ml-2">Конструктор</span>
                         </NavLink>
-                        <a href="/#" className={header.link + " p-5"}>
+                        <NavLink to="/feed" className={header.link + " p-5"}>
                             <ListIcon type="secondary" />
                             <span className="text_type_main-default text_color_inactive ml-2">Лента заказов</span>
-                        </a>
+                        </NavLink>
                     </nav>
                 </div>
                 <div className={header.col}>

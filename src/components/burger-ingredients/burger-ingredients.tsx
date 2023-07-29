@@ -3,7 +3,8 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBlock from "../scroll-block/scroll-block";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burger from "./burger-ingredients.module.css";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {RootState} from "../../services/types";
 
 interface Category {
     name: string;
@@ -23,7 +24,7 @@ function BurgerIngredients(): JSX.Element {
     const catLength = categories.length;
     const [catRefs, setCatRefs] = useState<RefObject<HTMLDivElement>[]>([]);
     const [current, setCurrent] = useState(categories[0].code);
-    const ingredients = useSelector((store: any) => store.ingredients.ingredients);
+    const ingredients = useSelector((store: RootState) => store.ingredients.ingredients);
 
     useEffect(() => {
         setCatRefs((catRefs) =>

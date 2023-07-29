@@ -2,14 +2,15 @@ import React, {useEffect, useState} from "react";
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import AuthForm from "../../components/auth-form/auth-form";
 import InfoLine from "../../components/info-line/info-line";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
 import {getLogin} from "../../services/actions/auth";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "../../services/types/hooks";
 
 const Login: React.FC = () => {
     const [form, setValue] = useState({ email: '', password: '' });
     const user = useSelector((store: any) => store.auth.user);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
@@ -18,7 +19,7 @@ const Login: React.FC = () => {
     const login = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.email && form.password){
-            dispatch(getLogin(form));
+           dispatch(getLogin(form));
         }
     };
 

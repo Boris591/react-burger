@@ -1,12 +1,19 @@
-import {ADD_ELEMENT, DELETE_ELEMENT, UPDATE_BUNS, UPDATE_ITEMS, UPDATE_PRICE} from "../actions/construct";
+import {ADD_ELEMENT, DELETE_ELEMENT, UPDATE_BUNS, UPDATE_ITEMS, UPDATE_PRICE} from "../actions/constants/construct";
+import {ConstructActions} from "../actions/construct";
 
-const initialState = {
+type ConstructState = {
+    items: any[],
+    buns: any[];
+    price: number;
+}
+
+const initialState: ConstructState = {
     items: [],
     buns: [],
     price: 0
 };
 
-export const constructReducer = (state = initialState, action) => {
+export const constructReducer = (state = initialState, action: ConstructActions) => {
     switch (action.type) {
         case DELETE_ELEMENT: {
             return { ...state, items: [...state.items].filter(item => item.dragId !== action.dragId) };

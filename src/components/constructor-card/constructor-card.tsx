@@ -1,9 +1,9 @@
 import {CurrencyIcon, DeleteIcon, DragIcon, LockIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import card from "./constructor-card.module.css";
 import DragIngredient from "../drag-ingredient/drag-ingredient";
-import {DELETE_ELEMENT} from "../../services/actions/construct";
-import {useDispatch} from "react-redux";
-import {DECREASE_COUNT_INGREDIENT} from "../../services/actions/ingredients";
+import {DELETE_ELEMENT} from "../../services/actions/constants/construct";
+import {useDispatch} from "../../services/types/hooks";
+import {DECREASE_COUNT_INGREDIENT} from "../../services/actions/constants/ingredients";
 
 interface ConstructorCardProps {
     id: string;
@@ -19,7 +19,7 @@ interface ConstructorCardProps {
 }
 
 const ConstructorCard: React.FC<ConstructorCardProps> = (props) => {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const deleteElement = () => {
         dispatch({
             type: DELETE_ELEMENT,

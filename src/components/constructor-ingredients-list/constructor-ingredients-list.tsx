@@ -1,7 +1,7 @@
 import ConstructorCard from "../constructor-card/constructor-card";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/types/hooks";
 import {useCallback} from "react";
-import {UPDATE_ITEMS} from "../../services/actions/construct";
+import {UPDATE_ITEMS} from "../../services/actions/constants/construct";
 
 interface Ingredient {
     id: string;
@@ -17,7 +17,7 @@ interface ConstructorIngredientsListProps {
 }
 
 function ConstructorIngredientsList(props: ConstructorIngredientsListProps) {
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
         const dragCard = props.ingredients[dragIndex];
         const newCards = [...props.ingredients]

@@ -9,7 +9,7 @@ export function checkResponse(res: Response): Promise<any> {
     return Promise.reject(res);
 }
 
-export function setCookie(name: string, value: string, props?: { expires?: Date; [key: string]: any }): void {
+export function setCookie(name: string, value: any, props?: { expires?: Date | -1; [key: string]: any }): void {
     props = props || {};
     let exp = props.expires;
     if (typeof exp === 'number' && exp) {

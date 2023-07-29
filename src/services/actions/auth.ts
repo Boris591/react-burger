@@ -8,34 +8,157 @@ import {
     TOKEN_POINT,
     USER_POINT
 } from "../../utils/constants";
+import {
+    FORGOT_PASS_REQUEST,
+    FORGOT_PASS_REQUEST_FAILED,
+    FORGOT_PASS_REQUEST_SUCCESS,
+    LOGIN_REQUEST,
+    LOGIN_REQUEST_FAILED,
+    LOGIN_REQUEST_SUCCESS, LOGOUT_REQUEST, LOGOUT_REQUEST_FAILED, LOGOUT_REQUEST_SUCCESS,
+    PASS_RESET_REQUEST,
+    PASS_RESET_REQUEST_FAILED,
+    PASS_RESET_REQUEST_SUCCESS,
+    REG_REQUEST,
+    REG_REQUEST_FAILED,
+    REG_REQUEST_SUCCESS, TOKEN_REFRESH_REQUEST, TOKEN_REFRESH_REQUEST_FAILED, TOKEN_REFRESH_REQUEST_SUCCESS,
+    UPDATE_USER_INFO_REQUEST,
+    UPDATE_USER_INFO_REQUEST_FAILED,
+    UPDATE_USER_INFO_REQUEST_SUCCESS,
+    USER_REQUEST, USER_REQUEST_FAILED, USER_REQUEST_SUCCESS
+} from "./constants/auth";
+import {User} from "../types/data";
+import {AppDispatch, AppThunk} from "../types";
 
-export const REG_REQUEST = 'REG_REQUEST';
-export const REG_REQUEST_SUCCESS = 'REG_REQUEST_SUCCESS';
-export const REG_REQUEST_FAILED = 'REG_REQUEST_FAILED';
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_REQUEST_SUCCESS = 'LOGIN_REQUEST_SUCCESS';
-export const LOGIN_REQUEST_FAILED = 'LOGIN_REQUEST_FAILED';
-export const USER_REQUEST = 'USER_REQUEST';
-export const USER_REQUEST_SUCCESS = 'USER_REQUEST_SUCCESS';
-export const USER_REQUEST_FAILED = 'USER_REQUEST_FAILED';
-export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
-export const TOKEN_REFRESH_REQUEST_SUCCESS = 'TOKEN_REFRESH_REQUEST_SUCCESS';
-export const TOKEN_REFRESH_REQUEST_FAILED = 'TOKEN_REFRESH_REQUEST_FAILED';
-export const FORGOT_PASS_REQUEST = 'FORGOT_PASS_REQUEST';
-export const FORGOT_PASS_REQUEST_SUCCESS = 'FORGOT_PASS_REQUEST_SUCCESS';
-export const FORGOT_PASS_REQUEST_FAILED = 'FORGOT_PASS_REQUEST_FAILED';
-export const PASS_RESET_REQUEST = 'FORGOT_PASS_RESET_REQUEST';
-export const PASS_RESET_REQUEST_SUCCESS = 'FORGOT_PASS_RESET_REQUEST_SUCCESS';
-export const PASS_RESET_REQUEST_FAILED = 'FORGOT_PASS_RESET_REQUEST_FAILED';
-export const UPDATE_USER_INFO_REQUEST = 'UPDATE_USER_INFO_REQUEST';
-export const UPDATE_USER_INFO_REQUEST_SUCCESS = 'UPDATE_USER_INFO_REQUEST_SUCCESS';
-export const UPDATE_USER_INFO_REQUEST_FAILED = 'UPDATE_USER_INFO_REQUEST_FAILED';
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_REQUEST_SUCCESS = 'LOGOUT_REQUEST_SUCCESS';
-export const LOGOUT_REQUEST_FAILED = 'LOGOUT_REQUEST_FAILED';
+export interface RegRequestAction {
+    readonly type: typeof REG_REQUEST;
+}
 
-export const getNewReg = (params) => {
-    return function(dispatch) {
+export interface RegRequestSuccessAction {
+    readonly type: typeof REG_REQUEST_SUCCESS;
+    readonly user: User
+}
+
+export interface RegRequestFailedAction {
+    readonly type: typeof REG_REQUEST_FAILED;
+}
+
+export interface LoginRequestAction {
+    readonly type: typeof LOGIN_REQUEST;
+}
+
+export interface LoginRequestSuccessAction {
+    readonly type: typeof LOGIN_REQUEST_SUCCESS;
+    readonly user: User
+}
+
+export interface LoginRequestFailedAction {
+    readonly type: typeof LOGIN_REQUEST_FAILED;
+}
+
+export interface UserRequestAction {
+    readonly type: typeof USER_REQUEST;
+}
+
+export interface UserRequestSuccessAction {
+    readonly type: typeof USER_REQUEST_SUCCESS;
+    readonly user: User
+}
+
+export interface UserRequestFailedAction {
+    readonly type: typeof USER_REQUEST_FAILED;
+}
+
+export interface TokenRefreshRequestAction {
+    readonly type: typeof TOKEN_REFRESH_REQUEST;
+}
+
+export interface TokenRefreshRequestSuccessAction {
+    readonly type: typeof TOKEN_REFRESH_REQUEST_SUCCESS;
+}
+
+export interface TokenRefreshRequestFailedAction {
+    readonly type: typeof TOKEN_REFRESH_REQUEST_FAILED;
+}
+
+export interface ForgotPassRequestAction {
+    readonly type: typeof FORGOT_PASS_REQUEST;
+}
+
+export interface ForgotPassRequestSuccessAction {
+    readonly type: typeof FORGOT_PASS_REQUEST_SUCCESS;
+}
+
+export interface ForgotPassRequestFailedAction {
+    readonly type: typeof FORGOT_PASS_REQUEST_FAILED;
+}
+
+export interface PassResetRequestAction {
+    readonly type: typeof PASS_RESET_REQUEST;
+}
+
+export interface PassResetRequestSuccessAction {
+    readonly type: typeof PASS_RESET_REQUEST_SUCCESS;
+}
+
+export interface PassResetRequestFailedAction {
+    readonly type: typeof PASS_RESET_REQUEST_FAILED;
+}
+
+export interface UpdateUserInfoRequestAction {
+    readonly type: typeof UPDATE_USER_INFO_REQUEST;
+}
+
+export interface UpdateUserInfoRequestSuccessAction {
+    readonly type: typeof UPDATE_USER_INFO_REQUEST_SUCCESS;
+    readonly user: User
+}
+
+export interface UpdateUserInfoRequestFailedAction {
+    readonly type: typeof UPDATE_USER_INFO_REQUEST_FAILED;
+}
+
+export interface LogoutRequestAction {
+    readonly type: typeof LOGOUT_REQUEST;
+}
+
+export interface LogoutRequestSuccessAction {
+    readonly type: typeof LOGOUT_REQUEST_SUCCESS;
+}
+
+export interface LogoutRequestFailedAction {
+    readonly type: typeof LOGOUT_REQUEST_FAILED;
+}
+
+export type AuthActions =
+    | RegRequestAction
+    | RegRequestSuccessAction
+    | RegRequestFailedAction
+    | LoginRequestAction
+    | LoginRequestSuccessAction
+    | LoginRequestFailedAction
+    | UserRequestAction
+    | UserRequestSuccessAction
+    | UserRequestFailedAction
+    | TokenRefreshRequestAction
+    | TokenRefreshRequestSuccessAction
+    | TokenRefreshRequestFailedAction
+    | ForgotPassRequestAction
+    | ForgotPassRequestSuccessAction
+    | ForgotPassRequestFailedAction
+    | PassResetRequestAction
+    | PassResetRequestSuccessAction
+    | PassResetRequestFailedAction
+    | UpdateUserInfoRequestAction
+    | UpdateUserInfoRequestSuccessAction
+    | UpdateUserInfoRequestFailedAction
+    | LogoutRequestAction
+    | LogoutRequestSuccessAction
+    | LogoutRequestFailedAction;
+
+
+
+export const getNewReg: AppThunk = (params: any) => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: REG_REQUEST
         });
@@ -58,8 +181,8 @@ export const getNewReg = (params) => {
     }
 }
 
-export const getLogin = (params) => {
-    return function(dispatch) {
+export const getLogin = (params: any) => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: LOGIN_REQUEST
         });
@@ -82,8 +205,8 @@ export const getLogin = (params) => {
     }
 }
 
-export const getForgotPass = (params) => {
-    return function(dispatch) {
+export const getForgotPass: AppThunk = (params: any) => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: FORGOT_PASS_REQUEST
         });
@@ -104,8 +227,8 @@ export const getForgotPass = (params) => {
     }
 }
 
-export const getResetPass = (params) => {
-    return function(dispatch) {
+export const getResetPass: AppThunk = (params: any) => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: PASS_RESET_REQUEST
         });
@@ -126,8 +249,8 @@ export const getResetPass = (params) => {
     }
 }
 
-export const updateUserInfo = (params) => {
-    return function(dispatch) {
+export const updateUserInfo: AppThunk = (params: any) => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: UPDATE_USER_INFO_REQUEST
         });
@@ -155,8 +278,8 @@ export const updateUserInfo = (params) => {
     }
 }
 
-export const getUserRequest = () => {
-    return function(dispatch) {
+export const getUserRequest: AppThunk = () => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -195,11 +318,11 @@ export const refreshToken = () => {
     });
 }
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: any) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
-    } catch (err) {
+    } catch (err: any) {
         if (err.status === 403) {
             const refreshData = await refreshToken();
             saveTokens(refreshData.refreshToken, refreshData.accessToken);
@@ -212,8 +335,8 @@ export const fetchWithRefresh = async (url, options) => {
     }
 };
 
-export const logoutRequest = () => {
-    return function(dispatch) {
+export const logoutRequest: AppThunk = () => {
+    return function(dispatch: AppDispatch) {
         dispatch({
             type: LOGOUT_REQUEST
         });

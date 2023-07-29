@@ -1,14 +1,17 @@
 import ingredient from "./ingredient-details.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {useEffect} from "react";
-import {getIngredients, UPDATE_INGREDIENT_INFO} from "../../services/actions/ingredients";
+import {UPDATE_INGREDIENT_INFO} from "../../services/actions/constants/ingredients";
+import {getIngredients} from "../../services/actions/ingredients";
 import {useParams} from "react-router-dom";
+import {RootState} from "../../services/types";
 
 const IngredientDetails: React.FC = () => {
-    const ingredientInfo = useSelector((store: any) => store.ingredients.ingredientInfo);
-    const ingredients = useSelector((store: any) => store.ingredients.ingredients);
+    const ingredientInfo = useSelector((store: RootState) => store.ingredients.ingredientInfo);
+    const ingredients = useSelector((store: RootState) => store.ingredients.ingredients);
     let { ingredientId } = useParams();
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const params = [
         {
             label: "Калории,ккал",
@@ -29,7 +32,7 @@ const IngredientDetails: React.FC = () => {
     ];
     useEffect(() => {
         if(ingredients.length === 0){
-            dispatch(getIngredients());
+           dispatch(getIngredients());
         }
     },[dispatch, ingredients]);
 

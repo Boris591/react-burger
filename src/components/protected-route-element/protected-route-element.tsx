@@ -1,8 +1,10 @@
 import {useEffect, useState} from 'react';
 import {getUserRequest} from "../../services/actions/auth";
 import {Navigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {getCookie} from "../../utils/help-methods";
+import {RootState} from "../../services/types";
 
 interface ProtectedRouteElementProps {
     element: React.ReactElement<any, any>;
@@ -10,9 +12,9 @@ interface ProtectedRouteElementProps {
     redirect?: string;
 }
 export function ProtectedRouteElement({ element, auth, redirect }: ProtectedRouteElementProps): JSX.Element | null {
-    const user = useSelector((store: any) => store.auth.user);
-    const tokenLoad = useSelector((store: any) => store.auth.tokenLoad);
-    const dispatch: any = useDispatch();
+    const user = useSelector((store: RootState) => store.auth.user);
+    const tokenLoad = useSelector((store: RootState) => store.auth.tokenLoad);
+    const dispatch = useDispatch();
     const [emptyTokens, setEmptyTokens] = useState(false);
 
 
@@ -21,7 +23,7 @@ export function ProtectedRouteElement({ element, auth, redirect }: ProtectedRout
         const refreshToken = getCookie('refreshToken');
 
         if(accessToken && refreshToken){
-            dispatch(getUserRequest())
+           dispatch(getUserRequest())
         }else {
             setEmptyTokens(true);
         }

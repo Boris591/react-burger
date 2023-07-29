@@ -1,12 +1,28 @@
-import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, RESET_ORDER_NUMBER} from "../actions/order";
+import {
+    GET_ORDER_FAILED,
+    GET_ORDER_REQUEST,
+    GET_ORDER_SUCCESS,
+    RESET_ORDER_NUMBER,
+    UPDATE_ORDER_INFO
+} from "../actions/constants/order";
+import {OrderActions} from "../actions/order";
+import {Order} from "../types/data";
 
-const initialState = {
+type OrderState = {
+    number: number | '',
+    orderRequest: boolean,
+    orderFailed: boolean,
+    order?: Order | null
+}
+
+const initialState: OrderState = {
     number: '',
     orderRequest: false,
     orderFailed: false,
+    order: null
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: OrderActions) => {
     switch (action.type) {
         case GET_ORDER_REQUEST: {
             return {
@@ -33,6 +49,12 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 number: ''
+            };
+        }
+        case UPDATE_ORDER_INFO: {
+            return {
+                ...state,
+                order: action.order
             };
         }
         default: {

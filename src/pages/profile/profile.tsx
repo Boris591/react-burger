@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import profile from "./profile.module.css"
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {updateUserInfo} from "../../services/actions/auth";
 import ProfileMenu from "../../components/profile-menu/profile-menu";
 
@@ -13,7 +14,7 @@ interface FormState {
 }
 function Profile(){
     const user = useSelector((store: any) => store.auth.user);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const [form, setValue] = useState<FormState>({ email: '', name: '', password: '' });
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
@@ -35,7 +36,7 @@ function Profile(){
         }
 
         if(Object.keys(data).length > 0){
-            dispatch(updateUserInfo(data));
+           dispatch(updateUserInfo(data));
         }
     };
     const reset = () => {

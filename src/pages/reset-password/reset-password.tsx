@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import AuthForm from "../../components/auth-form/auth-form";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import InfoLine from "../../components/info-line/info-line";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {Navigate, useNavigate} from "react-router-dom";
 import {getResetPass} from "../../services/actions/auth";
 
@@ -15,7 +16,7 @@ const ResetPassword = () => {
     const [form, setValue] = useState<FormState>({ token: '', password: '' });
     const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
     const passResetRes = useSelector((store: any) => store.auth.passResetSuccess);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +25,7 @@ const ResetPassword = () => {
 
     const resetPass = () => {
         if(form.password && form.token){
-            dispatch(getResetPass(form));
+           dispatch(getResetPass(form));
         }
     };
 

@@ -3,13 +3,14 @@ import AuthForm from "../../components/auth-form/auth-form";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import InfoLine from "../../components/info-line/info-line";
 import {getForgotPass} from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
+import {useDispatch} from "../../services/types/hooks";
 import {useNavigate} from "react-router-dom";
 
 const ForgotPassword: React.FC = () => {
     const [form, setValue] = useState({ email: '' });
     const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +20,7 @@ const ForgotPassword: React.FC = () => {
     const forgotPass = (event: React.FormEvent) => {
         event.preventDefault();
         if(form.email){
-            dispatch(getForgotPass(form));
+           dispatch(getForgotPass(form));
         }
     };
 
