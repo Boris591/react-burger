@@ -1,11 +1,6 @@
-import {constructReducer} from "./construct";
+import {constructReducer, initialState} from "./construct";
 import * as types from "../actions/constants/construct";
-
-const initialState = {
-    items: [],
-    buns: [],
-    price: 0
-};
+import {testItem, bun} from "../../utils/dataTest";
 
 describe('constructReducer', () => {
     it('should return initialState', () => {
@@ -13,116 +8,33 @@ describe('constructReducer', () => {
     });
 
     it('should handle DELETE_ELEMENT', () => {
+        const newItem = {...testItem, dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"};
         const action = {
             type: types.DELETE_ELEMENT,
             dragId: "35da0e51-4740-426d-81c0-dd8832246df8",
         }
         const newState = initialState;
         newState.items = [
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                price: 90,
-                name: "Соус Spicy-X",
-                type: "sauce",
-                image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                count: 0,
-                dragId: "35da0e51-4740-426d-81c0-dd8832246df8"
-            },
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                price: 90,
-                name: "Соус Spicy-X",
-                type: "sauce",
-                image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                count: 0,
-                dragId: "4eabac7c-269a-456f-97c1-cce495471774"
-            },
-            {
-                id: "643d69a5c3f7b9001cfa0941",
-                img: "https://code.s3.yandex.net/react/code/meat-01.png",
-                price: 424,
-                name: "Биокотлета из марсианской Магнолии",
-                type: "main",
-                image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-                count: 0,
-                dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"
-            }];
+            testItem,
+            newItem
+        ];
         const nextState = constructReducer(newState, action);
         expect(nextState.items).toEqual([
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                price: 90,
-                name: "Соус Spicy-X",
-                type: "sauce",
-                image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                count: 0,
-                dragId: "4eabac7c-269a-456f-97c1-cce495471774"
-            },
-            {
-                id: "643d69a5c3f7b9001cfa0941",
-                img: "https://code.s3.yandex.net/react/code/meat-01.png",
-                price: 424,
-                name: "Биокотлета из марсианской Магнолии",
-                type: "main",
-                image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-                count: 0,
-                dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"
-            }
+            newItem
         ]);
     });
 
     it('should handle ADD_ELEMENT', () => {
         const action = {
             type: types.ADD_ELEMENT,
-            item: {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                price: 90,
-                name: "Соус Spicy-X",
-                type: "sauce",
-                image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                count: 0,
-                dragId: "35da0e51-4740-426d-81c0-dd8832246df8"
-            },
+            item: testItem,
         }
         const newState = initialState;
-        newState.items = [
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/meat-01.png",
-                price: 424,
-                name: "Биокотлета из марсианской Магнолии",
-                type: "main",
-                image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-                count: 0,
-                dragId: "35da0e51-4740-426d-81c0-dd8832246df8"
-            },
-        ];
+        newState.items = [testItem];
         const nextState = constructReducer(newState, action);
         expect(nextState.items).toEqual([
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/meat-01.png",
-                price: 424,
-                name: "Биокотлета из марсианской Магнолии",
-                type: "main",
-                image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-                count: 0,
-                dragId: "35da0e51-4740-426d-81c0-dd8832246df8"
-            },
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                price: 90,
-                name: "Соус Spicy-X",
-                type: "sauce",
-                image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                count: 0,
-                dragId: "35da0e51-4740-426d-81c0-dd8832246df8"
-            }
+            testItem,
+            testItem
         ]);
     });
 
@@ -130,50 +42,14 @@ describe('constructReducer', () => {
         const action = {
             type: types.UPDATE_ITEMS,
             items: [
-                {
-                    id: "643d69a5c3f7b9001cfa0942",
-                    img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                    price: 90,
-                    name: "Соус Spicy-X",
-                    type: "sauce",
-                    image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                    count: 0,
-                    dragId: "4eabac7c-269a-456f-97c1-cce495471774"
-                },
-                {
-                    id: "643d69a5c3f7b9001cfa0941",
-                    img: "https://code.s3.yandex.net/react/code/meat-01.png",
-                    price: 424,
-                    name: "Биокотлета из марсианской Магнолии",
-                    type: "main",
-                    image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-                    count: 0,
-                    dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"
-                }
+                testItem,
+                {...testItem, dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"}
             ]
         }
         const nextState = constructReducer(initialState, action);
         expect(nextState.items).toEqual([
-            {
-                id: "643d69a5c3f7b9001cfa0942",
-                img: "https://code.s3.yandex.net/react/code/sauce-02.png",
-                price: 90,
-                name: "Соус Spicy-X",
-                type: "sauce",
-                image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-                count: 0,
-                dragId: "4eabac7c-269a-456f-97c1-cce495471774"
-            },
-            {
-                id: "643d69a5c3f7b9001cfa0941",
-                img: "https://code.s3.yandex.net/react/code/meat-01.png",
-                price: 424,
-                name: "Биокотлета из марсианской Магнолии",
-                type: "main",
-                image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-                count: 0,
-                dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"
-            }
+            testItem,
+            {...testItem, dragId: "4b14e1da-1780-4096-9a25-f2c2b4e88f3f"}
         ]);
     });
 
@@ -181,46 +57,14 @@ describe('constructReducer', () => {
         const action = {
             type: types.UPDATE_BUNS,
             buns: [
-                {
-                    id: "643d69a5c3f7b9001cfa093c",
-                    img: "https://code.s3.yandex.net/react/code/bun-02.png",
-                    price: 1255,
-                    name: "Краторная булка N-200i",
-                    type: "bun",
-                    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-                    count: 0
-                },
-                {
-                    id: "643d69a5c3f7b9001cfa093c",
-                    img: "https://code.s3.yandex.net/react/code/bun-02.png",
-                    price: 1255,
-                    name: "Краторная булка N-200i",
-                    type: "bun",
-                    image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-                    count: 0
-                }
+                bun,
+                bun
             ]
         };
         const nextState = constructReducer(initialState, action);
         expect(nextState.buns).toEqual([
-            {
-                id: "643d69a5c3f7b9001cfa093c",
-                img: "https://code.s3.yandex.net/react/code/bun-02.png",
-                price: 1255,
-                name: "Краторная булка N-200i",
-                type: "bun",
-                image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-                count: 0
-            },
-            {
-                id: "643d69a5c3f7b9001cfa093c",
-                img: "https://code.s3.yandex.net/react/code/bun-02.png",
-                price: 1255,
-                name: "Краторная булка N-200i",
-                type: "bun",
-                image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-                count: 0
-            }
+            bun,
+            bun
         ]);
     });
 

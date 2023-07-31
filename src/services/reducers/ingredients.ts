@@ -17,7 +17,7 @@ type IngredientsState = {
     ingredientInfo: Ingredient | null
 };
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,

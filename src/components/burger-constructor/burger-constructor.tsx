@@ -63,6 +63,7 @@ function BurgerConstructor(props: BurgerConstructorProps): JSX.Element {
                     item: {
                         ...item,
                         dragId: uuidv4(),
+                        uniqueId: uuidv4()
                     }
                 });
                 dispatch({

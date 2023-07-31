@@ -1,13 +1,5 @@
 import * as types from "../actions/constants/ws-orders-auth";
-import {wsOrdersAuthReducer} from "./wsorders-auth";
-
-const initialState = {
-    wsConnected: false,
-    total: 0,
-    totalToday: 0,
-    messages: [],
-    ordersAll: []
-};
+import {wsOrdersAuthReducer, initialState} from "./wsorders-auth";
 
 describe('wsOrdersAuthReducer', () => {
     it('should return initialState', () => {

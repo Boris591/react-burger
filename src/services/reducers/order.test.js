@@ -1,11 +1,5 @@
 import * as types from "../actions/constants/order";
-import {orderReducer} from "./order";
-
-const initialState = {
-    number: '',
-    orderRequest: false,
-    orderFailed: false
-};
+import {orderReducer, initialState} from "./order";
 
 describe('orderReducer', () => {
     it('should return initialState', () => {

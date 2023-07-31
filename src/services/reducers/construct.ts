@@ -7,7 +7,7 @@ type ConstructState = {
     price: number;
 }
 
-const initialState: ConstructState = {
+export const initialState: ConstructState = {
     items: [],
     buns: [],
     price: 0

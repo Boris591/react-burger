@@ -49,7 +49,7 @@ export type AuthState = {
     logoutFailed: boolean;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
     user: null,
     regRequest: false,
     regFailed: false,

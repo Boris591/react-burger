@@ -1,13 +1,5 @@
 import * as types from "../actions/constants/ws-orders";
-import {wsOrdersReducer} from "./wsorders";
-
-const initialState = {
-    wsConnected: false,
-    total: 0,
-    totalToday: 0,
-    messages: [],
-    ordersAll: []
-};
+import {wsOrdersReducer, initialState} from "./wsorders";
 
 describe('wsOrdersReducer', () => {
     it('should return initialState', () => {

@@ -1,29 +1,5 @@
-import {authReducer} from "./auth";
+import {authReducer, initialState} from "./auth";
 import * as types from '../actions/constants/auth';
-
-
-const initialState = {
-    user: null,
-    regRequest: false,
-    regFailed: false,
-    loginRequest: false,
-    loginFailed: false,
-    userRequest: false,
-    tokenLoad: false,
-    userRequestFailed: false,
-    tokenRefreshRequest: false,
-    tokenRefreshFailed: false,
-    forgotPassRequest: false,
-    forgotPassSuccess: false,
-    forgotPassFailed: false,
-    passResetRequest: false,
-    passResetSuccess: false,
-    passResetFailed: false,
-    updateUserInfoRequest: false,
-    updateUserInfoFailed: false,
-    logoutRequest: false,
-    logoutFailed: false,
-};
 
 describe('authReducer', () => {
     it('should return initialState', () => {
