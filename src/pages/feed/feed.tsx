@@ -7,12 +7,13 @@ import OrderList from "../../components/order-list/order-list";
 import {getIngredients} from "../../services/actions/ingredients";
 import AllInfoOrders from "../../components/all-info-orders/all-info-orders";
 import {Order} from "../../services/types/data";
+import {RootState} from "../../services/types";
 
 const Feed: React.FC = () => {
     const dispatch = useDispatch();
-    const orders = useSelector((store: any) => store.wsOrders.ordersAll);
-    const total = useSelector((store: any) => store.wsOrders.total);
-    const totalToday = useSelector((store: any) => store.wsOrders.totalToday);
+    const orders = useSelector((store: RootState) => store.wsOrders.ordersAll);
+    const total = useSelector((store: RootState) => store.wsOrders.total);
+    const totalToday = useSelector((store: RootState) => store.wsOrders.totalToday);
     const [working, setWorking] = useState<number[]>([]);
     const [done, setDone] = useState<number[]>([]);
     useEffect(() => {

@@ -5,6 +5,7 @@ import {useSelector} from "../../services/types/hooks";
 import {useDispatch} from "../../services/types/hooks";
 import {updateUserInfo} from "../../services/actions/auth";
 import ProfileMenu from "../../components/profile-menu/profile-menu";
+import {RootState} from "../../services/types";
 
 interface FormState {
     email: string;
@@ -13,7 +14,7 @@ interface FormState {
     [key: string]: string;
 }
 function Profile(){
-    const user = useSelector((store: any) => store.auth.user);
+    const user = useSelector((store: RootState) => store.auth.user);
     const dispatch = useDispatch();
     const [form, setValue] = useState<FormState>({ email: '', name: '', password: '' });
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,9 +30,11 @@ function Profile(){
     const save = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let data: Partial<FormState> = {};
-        for (let key in form) {
-            if(form[key] !== user[key]){
-                data[key] = form[key];
+        if(user){
+            for (let key in form) {
+                if(form[key] !== user[key]){
+                    data[key] = form[key];
+                }
             }
         }
 
@@ -40,11 +43,13 @@ function Profile(){
         }
     };
     const reset = () => {
-        setValue({
-            password: '',
-            name: user.name,
-            email: user.email
-        });
+        if(user){
+            setValue({
+                password: '',
+                name: user.name,
+                email: user.email
+            });
+        }
     }
     return (
         <div className={profile.page}>
@@ -91,7 +96,7 @@ function Profile(){
                             />
 
                             {
-                                user.name !== form.name || user.email !== form.email || form.password !== '' ?
+                                user && (user.name !== form.name || user.email !== form.email || form.password !== '') ?
                                 <>
                                     <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20 mr-2">
                                         Сохранить

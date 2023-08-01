@@ -6,10 +6,11 @@ import {useSelector} from "../../services/types/hooks";
 import {getLogin} from "../../services/actions/auth";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "../../services/types/hooks";
+import {RootState} from "../../services/types";
 
 const Login: React.FC = () => {
     const [form, setValue] = useState({ email: '', password: '' });
-    const user = useSelector((store: any) => store.auth.user);
+    const user = useSelector((store: RootState) => store.auth.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

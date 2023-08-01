@@ -9,10 +9,11 @@ import {
 } from "../../../services/actions/constants/ws-orders-auth";
 import {getIngredients} from "../../../services/actions/ingredients";
 import {useDispatch, useSelector} from "../../../services/types/hooks";
+import {RootState} from "../../../services/types";
 
 const Orders: React.FC = () => {
     const dispatch = useDispatch();
-    const orders = useSelector((store: any) => store.wsOrdersAuth.ordersAll);
+    const orders = useSelector((store: RootState) => store.wsOrdersAuth.ordersAll);
 
     useEffect(() => {
         dispatch(getIngredients());

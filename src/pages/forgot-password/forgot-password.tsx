@@ -6,10 +6,11 @@ import {getForgotPass} from "../../services/actions/auth";
 import {useSelector} from "../../services/types/hooks";
 import {useDispatch} from "../../services/types/hooks";
 import {useNavigate} from "react-router-dom";
+import {RootState} from "../../services/types";
 
 const ForgotPassword: React.FC = () => {
     const [form, setValue] = useState({ email: '' });
-    const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
+    const passRes = useSelector((store: RootState) => store.auth.forgotPassSuccess);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

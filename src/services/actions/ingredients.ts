@@ -63,7 +63,7 @@ export const getIngredients: AppThunk = () => {
 
         request(BASE_URL + INGREDIENTS_POINT)
             .then(data => {
-                data.data.forEach((e: any) => e.count = 0);
+                data.data.forEach((e: Ingredient) => e.count = 0);
                 dispatch({type: GET_INGREDIENTS_SUCCESS, ingredients: data.data})
             })
             .catch(() => dispatch({type: GET_INGREDIENTS_FAILED}));

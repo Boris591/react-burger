@@ -1,21 +1,23 @@
+
 describe("Test", () => {
+  const ingredientSelector = '[class^=ingredient-card_card]';
   beforeEach(() => {
     cy.visit('/');
   });
 
   it('Test Ingredient Card', function () {
-    cy.get('[class^=ingredient-card_card]').first()
+    cy.get(ingredientSelector).first()
         .should('exist');
-    cy.get('[class^=ingredient-card_card]').first().click();
+    cy.get(ingredientSelector).first().click();
     cy.get('[class^=modal_modal]').contains('Детали ингридиента').should('exist');
     cy.get('[class^=modal_close]').click();
   });
 
   it('Test create order', function () {
-    cy.get('[class^=ingredient-card_card]').first()
+    cy.get(ingredientSelector).first()
         .should('exist');
 
-    cy.get('[class^=ingredient-card_card]').first().trigger('dragstart');
+    cy.get(ingredientSelector).first().trigger('dragstart');
     cy.get('[class^=burger-constructor_list]').trigger('drop');
 
     cy.get('[class^=constructor-card_main]').first()
