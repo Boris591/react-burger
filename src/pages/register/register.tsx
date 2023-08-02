@@ -6,9 +6,10 @@ import {useSelector} from "../../services/types/hooks";
 import {useDispatch} from "../../services/types/hooks";
 import {useNavigate} from "react-router-dom";
 import {getNewReg} from "../../services/actions/auth";
+import {RootState} from "../../services/types";
 
 const Register: React.FC = () => {
-    const user = useSelector((store: any) => store.auth.user);
+    const user = useSelector((store: RootState) => store.auth.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [form, setValue] = useState({ name: '', email: '', password: '' });

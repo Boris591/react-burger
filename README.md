@@ -1,3 +1,10 @@
+# React-Burger 🍔
+Project: https://boris591.github.io/react-burger/
+
+![Запись экрана 2023-08-02 в 00.57.26.gif](..%2F..%2F..%2FDownloads%2F%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-08-02%20%D0%B2%2000.57.26.gif)
+
+React-Burger is a learning project. Core technologies: react, redux, typescript.
+
 # Getting Started with Create React Main
 
 This project was bootstrapped with [Create React Main](https://github.com/facebook/create-react-app).

@@ -6,6 +6,7 @@ import {useSelector} from "../../services/types/hooks";
 import {useDispatch} from "../../services/types/hooks";
 import {Navigate, useNavigate} from "react-router-dom";
 import {getResetPass} from "../../services/actions/auth";
+import {RootState} from "../../services/types";
 
 interface FormState {
     token: string;
@@ -14,8 +15,8 @@ interface FormState {
 
 const ResetPassword = () => {
     const [form, setValue] = useState<FormState>({ token: '', password: '' });
-    const passRes = useSelector((store: any) => store.auth.forgotPassSuccess);
-    const passResetRes = useSelector((store: any) => store.auth.passResetSuccess);
+    const passRes = useSelector((store: RootState) => store.auth.forgotPassSuccess);
+    const passResetRes = useSelector((store: RootState) => store.auth.passResetSuccess);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

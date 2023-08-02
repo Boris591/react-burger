@@ -7,10 +7,11 @@ import AppPanel from "../../components/app-panel/app-panel";
 import {getCookie} from "../../utils/help-methods";
 import {getUserRequest} from "../../services/actions/auth";
 import {WS_ORDERS_CONNECTION_START} from "../../services/actions/constants/ws-orders";
+import {RootState} from "../../services/types";
 
 const Main: React.FC = () => {
     const dispatch = useDispatch();
-    const error = useSelector((store: any) => store.ingredients.ingredientsFailed);
+    const error = useSelector((store: RootState) => store.ingredients.ingredientsFailed);
 
     useEffect(() =>{
         const accessToken = getCookie('accessToken');

@@ -15,7 +15,7 @@ type WSOrdersStateAuth = {
     error?: Event;
 }
 
-const initialState: WSOrdersStateAuth = {
+export const initialState: WSOrdersStateAuth = {
     wsConnected: false,
     total: 0,
     totalToday: 0,
